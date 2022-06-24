@@ -5,7 +5,7 @@ games. It uses the LCF parser library (liblcf) to read RPG Maker game data.
 
 EasyRPGPlayer-Vietnamese is a fork that adds Vietnamese language font and making
 the player Vietnamese-compatible. This fork is heavily inspired from
-[toaranotdev's fork](https://github.com/toaranotdev/easyrpg-player-vietnamese), so you should check this fork too.
+[toaranotdev's fork](https://github.com/toaranotdev/easyrpg-player-vietnamese), so you should check that fork too.
 
 EasyRPG Player is part of the EasyRPG Project. More information is
 available at the project website: https://easyrpg.org/
