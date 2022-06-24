@@ -3,9 +3,21 @@
 EasyRPG Player is a game interpreter to play RPG Maker 2000, 2003 and EasyRPG
 games. It uses the LCF parser library (liblcf) to read RPG Maker game data.
 
+EasyRPGPlayer-Vietnamese is a fork that adds Vietnamese language font and making
+the player Vietnamese-compatible. This fork is heavily inspired from
+[toaranotdev's fork](https://github.com/toaranotdev/easyrpg-player-vietnamese), so you should check this fork too.
+
 EasyRPG Player is part of the EasyRPG Project. More information is
 available at the project website: https://easyrpg.org/
 
+## How to translate a RPG2000/2003 game into Vietnamese?
+
+Use [lcftrans](https://ci.easyrpg.org/view/Tools/) to extract text messages in
+the game and just translate them. This fork of Player supports Unicode text
+so feel free to type using Unicode.
+
+Also, the game itself should use Shinonome as the font to make the player
+capable to display the Vietnamese-modded font.
 
 ## Documentation
 
@@ -106,6 +118,7 @@ EasyRPG Player makes use of the following 3rd party software:
   and modified for use in EasyRPG Player, all changes under public domain.
 * [ttyp0] font family - Copyright (c) 2012-2015 Uwe Waldmann, provided under
   ttyp0 license
+* A modded version of [gohufont](https://github.com/hchargois/gohufont) font family - Copyright (c) 2015 Hugo Chargois, WTFPL license
 * [WenQuanYi] font family (CJK) - Copyright (c) 2004-2010 WenQuanYi Project
   Contributors provided under the GPLv2 or later with Font Exception
 * [Teenyicons] Tiny minimal 1px icons - Copyright (c) 2020 Anja van Staden,
