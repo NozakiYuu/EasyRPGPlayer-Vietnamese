@@ -69,10 +69,10 @@ Yêu cầu các ứng dụng sau trước khi bắt đầu xây dựng:
 
 Mở Command Prompt (Dấu nhắc lệnh) và dùng lệnh `cd` để trỏ tới thư mục bạn muốn. Sau đó sử dụng các câu lệnh sau:
 
-	git clone https://github.com/EasyRPG/buildscripts.git		# Tải công cụ xây dựng thư viện của EasyRPG
-	cd buildscripts\windows										# Trỏ tới thư mục xây dựng thư viện trên Windows
-	.\build														# Bắt đầu xây dựng thư viện trên Windows
-	vcpkg integrate install										# Liên kết vcpkg với CMake
+	git clone https://github.com/EasyRPG/buildscripts.git       # Tải công cụ xây dựng thư viện của EasyRPG
+	cd buildscripts\windows                                     # Trỏ tới thư mục xây dựng thư viện trên Windows
+	.\build                                                     # Bắt đầu xây dựng thư viện trên Windows
+	vcpkg integrate install                                     # Liên kết vcpkg với CMake
 	
 Nếu thời gian xây dựng của bạn quá lâu, bạn cũng có thể tải thư viện đã được xây dựng sẵn tại trang web https://ci.easyrpg.org/view/Windows/job/toolchain-windows và giải nén nó vào thư mục của vcpkg.
 	
@@ -130,8 +130,8 @@ Khuyên dùng hệ điều hành Linux để thực hiện việc xây dựng, v
 
 Mở Terminal (Dòng lệnh) và chạy các câu lệnh sau:
 
-	git clone https://github.com/EasyRPG/buildscripts.git		# Tải công cụ xây dựng thư viện của EasyRPG
-	cd buildscripts/android										# Trỏ tới thư mục xây dựng thư viện trên Android
+	git clone https://github.com/EasyRPG/buildscripts.git       # Tải công cụ xây dựng thư viện của EasyRPG
+	cd buildscripts/android                                     # Trỏ tới thư mục xây dựng thư viện trên Android
 	
 Tạo một KeyStore bằng Android Studio hoặc KeyStore Manager. Hướng dẫn tạo thì bạn có thể tìm hiểu ở trên Google.
 

@@ -92,7 +92,7 @@ Trò chuyện qua Facebook: https://www.facebook.com/Yonaka12 hoặc qua Discord
 
 ## Giấy phép
 
-EasyRPG Player là một phần mềm miễn phí có sẵn dưới giấy phép GPLv3. Đọc tệp tin [COPYING] để xem điều kiện của giấy phép. Để xem thông tin tác giả hãy truy cập vào [tài liệu tác giả](https://github.com/NozakiYuu/EasyRPGPlayer-Vietnamese/blob/master/docs/AUTHORS.md).
+EasyRPG Player là một phần mềm miễn phí có sẵn dưới giấy phép GPLv3. Đọc tệp tin [COPYING](/docs/COPYING.md) để xem điều kiện của giấy phép. Để xem thông tin tác giả hãy truy cập vào [tài liệu tác giả](https://github.com/NozakiYuu/EasyRPGPlayer-Vietnamese/blob/master/docs/AUTHORS.md).
 
 
 ### Phần mềm bên thứ ba (3rd party software)
