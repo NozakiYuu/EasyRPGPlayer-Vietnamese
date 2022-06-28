@@ -89,7 +89,7 @@ Thực hiện các lệnh sau tuỳ theo phiên bản Player mà bạn muốn x�
 	cmake . -DSHARED_RUNTIME=OFF -DVCPKG_TARGET_TRIPLET=x86-windows-static -DCMAKE_TOOLCHAIN_FILE=(đường dẫn vcpkg)\scripts\buildsystems\vcpkg.cmake
 	-DCMAKE_BUILD_TYPE=(loại xây dựng) -DPLAYER_BUILD_LIBLCF=ON -A Win32
 	
-Trong đó, `(đường dẫn vcpkg)` là đường dẫn thư mục của vcpkg đã làm ở bước trên, còn `loại xây dựng` có thể là `Debug`, `Release` hoặc `RelWithDebInfo` tuỳ theo mục đích sử dụng của bạn.
+Trong đó, `(đường dẫn vcpkg)` là đường dẫn thư mục của vcpkg đã làm ở bước trên, còn `(loại xây dựng)` có thể là `Debug`, `Release` hoặc `RelWithDebInfo` tuỳ theo mục đích sử dụng của bạn.
 
 Khi đó, dự án để xây dựng Player sẽ được cài đặt. Tuy nhiên ở một số máy có thể sẽ bị lỗi thư viện fmt, khi đó bạn hãy dùng một trình chỉnh sửa (ví dụ như Notepad) và mở tệp tin sau:
 
@@ -104,7 +104,7 @@ Bản 64-bit chỉ có thể được xây dựng khi bạn đang sử dụng Wi
 	cmake . -DSHARED_RUNTIME=OFF -DVCPKG_TARGET_TRIPLET=x64-windows-static -DCMAKE_TOOLCHAIN_FILE=(đường dẫn vcpkg)\scripts\buildsystems\vcpkg.cmake
 	-DCMAKE_BUILD_TYPE=(loại xây dựng) -DPLAYER_BUILD_LIBLCF=ON -A x64
 	
-Trong đó, `(đường dẫn vcpkg)` là đường dẫn thư mục của vcpkg đã làm ở bước trên, còn `loại xây dựng` có thể là `Debug`, `Release` hoặc `RelWithDebInfo` tuỳ theo mục đích sử dụng của bạn.
+Trong đó, `(đường dẫn vcpkg)` là đường dẫn thư mục của vcpkg đã làm ở bước trên, còn `(loại xây dựng)` có thể là `Debug`, `Release` hoặc `RelWithDebInfo` tuỳ theo mục đích sử dụng của bạn.
 	
 Sau đó dự án sẽ được cài đặt bình thường và không có lỗi nào xảy ra cả.
 
@@ -167,7 +167,7 @@ Sau đó, chạy dòng lệnh sau ở cửa sổ dòng lệnh đang mở ở bư
 
 	./0_build_everything.sh
 	
-Và đợi cho EasyRPG Player trên Android được xây dựng xong. Nếu có lỗi thư viện (`Cannot find -l<tên thư viện>`) bạn có thể tìm tên thư viện đó và chạy lại lệnh:
+Và đợi cho EasyRPG Player trên Android được xây dựng xong. Nếu có lỗi thư viện (`Cannot find -l<tên thư viện>`) bạn có thể cài đặt thư viện đó và chạy lại lệnh:
 
 	./5_build_android_port.sh
 	
