@@ -145,6 +145,22 @@ Chỉnh sửa 3 biến sau ở trong tệp tin:
 - `KEYSTORE_PASSWORD` = mật khẩu của tệp tin KeyStore mà bạn đã nhập trong lúc tạo
 - `KEYSTORE_NAME` = tên của KeyStore, bạn có thể nhập tên bất kì nhưng không được chứa dấu cách
 
+Thay đổi dòng sau trong tệp tin:
+
+    git clone https://github.com/EasyRPG/Player.git
+    
+thành:
+
+    git clone https://github.com/NozakiYuu/EasyRPGPlayer-Vietnamese.git
+    
+Và thay đổi dòng sau:
+
+    cd Player/builds/android
+    
+thành:
+
+    cd EasyRPGPlayer-Vietnamese/builds/android
+
 Sau đó, chạy dòng lệnh sau ở cửa sổ dòng lệnh đang mở ở bước trên.
 
 	./0_build_everything.sh
