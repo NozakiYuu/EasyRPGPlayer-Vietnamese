@@ -147,11 +147,13 @@ Chỉnh sửa 3 biến sau ở trong tệp tin:
 
 Thay đổi dòng sau trong tệp tin:
 
-    git clone https://github.com/EasyRPG/Player.git
+    if [ ! -d Player/.git ]; then
+        git clone https://github.com/EasyRPG/Player.git
     
 thành:
 
-    git clone https://github.com/NozakiYuu/EasyRPGPlayer-Vietnamese.git
+    if [ ! -d EasyRPGPlayer-Vietnamese/.git ]; then
+        git clone https://github.com/NozakiYuu/EasyRPGPlayer-Vietnamese.git
     
 Và thay đổi dòng sau:
 
