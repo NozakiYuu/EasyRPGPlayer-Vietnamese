@@ -37,7 +37,7 @@ Sau khi xây dựng, một tệp tin `easyrpg-player` sẽ xuất hiện ở th�
 
 ### Sử dụng CMake
 
-Phương thức này chưa được thử nghiệm ở trên Linux và có thể sẽ có lỗi phát sinh.
+Phương thức xây dựng này đã được thử nghiệm thành công bởi nhà phát triển của bản tiếng Việt.
 
 Yêu cầu các thư viện được đề cập ở phần [README](/README.md), phần *Các thư viện* ở bên trên và các ứng dụng sau:
 
@@ -52,6 +52,12 @@ Mở ứng dụng Dòng lệnh (Terminal) ở trên máy tính của bạn và c
     cmake . -DCMAKE_BUILD_TYPE=Release    # Tìm thư viện và cài đặt trước khi xây dựng
     cmake --build .                       # Biên dịch và xây dựng ứng dụng
     sudo cmake --build . --target install # Cài đặt ứng dụng trên toàn bộ hệ thống của hệ điều hành
+    
+Nếu bạn bị lỗi thư viện (`Cannot find -lgrm`), bạn có thể dùng lệnh sau để cài thư viện:
+
+    sudo apt-get install --install-recommends libdrm-dev libgbm1 libgbm-dev libdecor-0-dev
+    
+Sau khi xây dựng, một tệp tin `easyrpg-player` sẽ xuất hiện ở thư mục chứa mã nguồn.
 	
 ## Windows
 
