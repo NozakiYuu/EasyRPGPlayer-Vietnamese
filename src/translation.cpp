@@ -84,10 +84,7 @@ void Translation::InitTranslations()
 	auto fs = FileFinder::Game();
 	auto game_tree = fs.ListDirectory();
 	for (const auto& tr_name : *game_tree) {
-		if (tr_name.first == TRDIR_NAME_LEGACY) {
-			Output::Warning("Deprecation warning: Please rename \"languages\" directory to \"language\"");
-			translation_root_fs = fs.Subtree(tr_name.second.name);
-		} else if (tr_name.first == TRDIR_NAME) {
+		if (tr_name.first == TRDIR_NAME_LEGACY || tr_name.first == TRDIR_NAME) {
 			translation_root_fs = fs.Subtree(tr_name.second.name);
 		}
 	}
@@ -145,7 +142,7 @@ void Translation::SelectLanguage(StringView lang_id)
 	if (!lang_id.empty()) {
 		auto root = GetRootTree();
 		if (!root) {
-			Output::Error("Cannot load translation. 'Language' folder does not exist");
+			Output::Error("Không thể tải dữ liệu bản dịch. Thư mục 'Language' không tồn tại");
 			return;
 		}
 
@@ -159,7 +156,7 @@ void Translation::SelectLanguage(StringView lang_id)
 				request->Start();
 			}
 		} else {
-			Output::Warning("Translation for '{}' does not appear to exist", lang_id);
+			Output::Warning("Bản dịch cho '{}' không tồn tại", lang_id);
 		}
 	} else {
 		// Default language, no request needed
@@ -236,7 +233,7 @@ bool Translation::ParseLanguageFiles(StringView lang_id)
 	if (!lang_id.empty()) {
 		language_tree = GetRootTree().Subtree(lang_id);
 		if (!language_tree) {
-			Output::Warning("Translation for '{}' does not appear to exist", lang_id);
+			Output::Warning("Bản dịch cho '{}' không tồn tại", lang_id);
 			return false;
 		}
 	}
@@ -773,7 +770,7 @@ void Dictionary::FromPo(Dictionary& res, std::istream& in) {
 
 	auto extract_string = [&](int offset) -> std::string {
 		if (offset >= line_view.size()) {
-			Output::Error("Parse error (Line {}) is empty", line_number);
+			Output::Error("Lỗi phân tích: Dòng {} không có gì cả.", line_number);
 			return "";
 		}
 
@@ -789,7 +786,7 @@ void Dictionary::FromPo(Dictionary& res, std::istream& in) {
 					first_quote = true;
 					continue;
 				}
-				Output::Error("Parse error (Line {}): Expected \", got \"{}\": {}", line_number, c, line);
+				Output::Error("Lỗi phân tích (Dòng {}): Cần \", nhưng lại có \"{}\": {}", line_number, c, line);
 				return "";
 			}
 
@@ -808,7 +805,7 @@ void Dictionary::FromPo(Dictionary& res, std::istream& in) {
 						out << '"';
 						break;
 					default:
-						Output::Error("Parse error (Line {}): Expected \\, \\n or \", got \"{}\": {}", line_number, c, line);
+						Output::Error("Lỗi phân tích (dòng {}): Cần \\, \\n hoặc \", nhưng lại có \"{}\": {}", line_number, c, line);
 						break;
 				}
 			} else {
@@ -821,7 +818,7 @@ void Dictionary::FromPo(Dictionary& res, std::istream& in) {
 			}
 		}
 
-		Output::Error("Parse error (Line {}): Unterminated line: {}", line_number, line);
+		Output::Error("Lỗi phân tích (dòng {}): Dòng không được dừng lại: {}", line_number, line);
 		return out.str();
 	};
 

@@ -107,7 +107,7 @@ static uint32_t SelectFormat(const SDL_RendererInfo& rinfo, bool print_all) {
 					i, SDL_GetPixelFormatName(fmt), rank);
 		} else {
 			if (print_all) {
-				Output::Debug("SDL2: Detected format ({}) {} : Not Supported",
+				Output::Debug("SDL2: Detected format ({}) {} : không được hỗ trợ",
 						i, SDL_GetPixelFormatName(fmt));
 			}
 		}
@@ -138,7 +138,7 @@ Sdl2Ui::Sdl2Ui(long width, long height, const Game_ConfigVideo& cfg) : BaseUi(cf
 #endif
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		Output::Error("Couldn't initialize SDL.\n{}\n", SDL_GetError());
+		Output::Error("Không thể khởi động SDL.\n{}\n", SDL_GetError());
 	}
 
 	RequestVideoMode(width, height,
@@ -150,7 +150,7 @@ Sdl2Ui::Sdl2Ui(long width, long height, const Game_ConfigVideo& cfg) : BaseUi(cf
 
 #if (defined(USE_JOYSTICK) && defined(SUPPORT_JOYSTICK)) || (defined(USE_JOYSTICK_AXIS) && defined(SUPPORT_JOYSTICK_AXIS))
 	if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) < 0) {
-		Output::Warning("Couldn't initialize joystick. {}", SDL_GetError());
+		Output::Warning("Không thể khởi động tay cầm. {}", SDL_GetError());
 	}
 
 	SDL_JoystickEventState(SDL_ENABLE);
@@ -230,10 +230,10 @@ void Sdl2Ui::EndDisplayModeChange() {
 
 					// Try a rollback to last mode
 					if (!RefreshDisplayMode()) {
-						Output::Error("Couldn't rollback to last display mode.\n{}", SDL_GetError());
+						Output::Error("Không thể trở lại chế độ hiển thị trước.\n{}", SDL_GetError());
 					}
 				} else {
-					Output::Error("Couldn't set display mode.\n{}", SDL_GetError());
+					Output::Error("Không thể cài đặt chế độ hiển thị.\n{}", SDL_GetError());
 				}
 			}
 
@@ -833,7 +833,7 @@ void Sdl2Ui::SetAppIcon() {
 	SDL_bool success = SDL_GetWindowWMInfo(sdl_window, &wminfo);
 
 	if (success < 0)
-		Output::Error("Wrong SDL version");
+		Output::Error("Sai phiên bản SDL.");
 
 	HWND window;
 	HINSTANCE handle = GetModuleHandle(NULL);
@@ -842,7 +842,7 @@ void Sdl2Ui::SetAppIcon() {
 		GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), 0);
 
 	if (icon == NULL || icon_small == NULL)
-		Output::Warning("Could not load window icon.");
+		Output::Warning("Không thể tải biểu tượng cửa sổ.");
 
 	window = wminfo.info.win.window;
 	SetClassLongPtr(window, GCLP_HICON, (LONG_PTR) icon);
@@ -880,7 +880,7 @@ void Sdl2Ui::SetAppIcon() {
 	SDL_Surface *icon = SDL_CreateRGBSurfaceFrom(icon32, ICON_SIZE, ICON_SIZE, 32, ICON_SIZE*4, Rmask, Gmask, Bmask, Amask);
 
 	if (icon == NULL)
-		Output::Warning("Could not load window icon.");
+		Output::Warning("Không thể tải biểu tượng cửa sổ.");
 
 	SDL_SetWindowIcon(sdl_window, icon);
 	SDL_FreeSurface(icon);

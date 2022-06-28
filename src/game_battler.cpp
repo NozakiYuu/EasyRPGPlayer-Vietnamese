@@ -121,7 +121,7 @@ bool Game_Battler::IsSkillUsable(int skill_id) const {
 	const lcf::rpg::Skill* skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, skill_id);
 
 	if (!skill) {
-		Output::Warning("IsSkillUsable: Invalid skill ID {}", skill_id);
+		Output::Warning("IsSkillUsable: ID kĩ năng {} không hợp lệ", skill_id);
 		return false;
 	}
 
@@ -147,7 +147,7 @@ bool Game_Battler::IsSkillUsable(int skill_id) const {
 bool Game_Battler::UseItem(int item_id, const Game_Battler* source) {
 	const lcf::rpg::Item* item = lcf::ReaderUtil::GetElement(lcf::Data::items, item_id);
 	if (!item) {
-		Output::Warning("UseItem: Can't use item with invalid ID {}", item_id);
+		Output::Warning("UseItem: Không thể sử dụng vật phẩm với ID {} không hợp lệ", item_id);
 		return false;
 	}
 
@@ -206,7 +206,7 @@ bool Game_Battler::UseItem(int item_id, const Game_Battler* source) {
 	if (do_skill) {
 		auto* skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, item->skill_id);
 		if (skill == nullptr) {
-			Output::Warning("UseItem: Can't use item {} skill with invalid ID {}", item->ID, item->skill_id);
+			Output::Warning("UseItem: Không thể sử dụng kĩ năng của vật phẩm {} với ID {} không hợp lệ", item->ID, item->skill_id);
 			return false;
 		}
 		return UseSkill(item->skill_id, source);
@@ -218,7 +218,7 @@ bool Game_Battler::UseItem(int item_id, const Game_Battler* source) {
 bool Game_Battler::UseSkill(int skill_id, const Game_Battler* source) {
 	const lcf::rpg::Skill* skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, skill_id);
 	if (!skill) {
-		Output::Warning("UseSkill: Can't use skill with invalid ID {}", skill_id);
+		Output::Warning("UseSkill: Không thể sử dụng kĩ năng với ID {} không hợp lệ", skill_id);
 		return false;
 	}
 
@@ -311,7 +311,7 @@ bool Game_Battler::UseSkill(int skill_id, const Game_Battler* source) {
 int Game_Battler::CalculateSkillCost(int skill_id) const {
 	const lcf::rpg::Skill* skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, skill_id);
 	if (!skill) {
-		Output::Warning("CalculateSkillCost: Invalid skill ID {}", skill_id);
+		Output::Warning("CalculateSkillCost: ID kĩ năng {} không hợp lệ", skill_id);
 		return 0;
 	}
 	return Algo::CalcSkillCost(*skill, GetMaxSp(), false);
@@ -320,7 +320,7 @@ int Game_Battler::CalculateSkillCost(int skill_id) const {
 int Game_Battler::CalculateSkillHpCost(int skill_id) const {
 	const lcf::rpg::Skill* skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, skill_id);
 	if (!skill) {
-		Output::Warning("CalculateSkillHpCost: Invalid skill ID {}", skill_id);
+		Output::Warning("CalculateSkillHpCost: ID kĩ năng {} không hợp lệ", skill_id);
 		return 0;
 	}
 	return Algo::CalcSkillHpCost(*skill, GetMaxHp());

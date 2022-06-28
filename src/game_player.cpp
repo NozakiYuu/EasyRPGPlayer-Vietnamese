@@ -101,7 +101,7 @@ void Game_Player::PerformTeleport() {
 	}
 
 	if (teleport_target.GetMapId() <= 0) {
-		Output::Error("Invalid Teleport map id! mapid={} x={} y={} d={}", teleport_target.GetMapId(),
+		Output::Error("ID bản đồ cần dịch chuyển không hợp lệ! mapid={} x={} y={} d={}", teleport_target.GetMapId(),
 				teleport_target.GetX(), teleport_target.GetY(), teleport_target.GetDirection());
 	}
 
@@ -652,7 +652,7 @@ bool Game_Player::Move(int dir) {
 			Main_Data::game_system->SePlay(terrain->footstep);
 		}
 	} else {
-		Output::Warning("Player BeginMove: Invalid terrain ID {} at ({}, {})", terrain_id, GetX(), GetY());
+		Output::Warning("Player BeginMove: ID địa hình {} ở vị trí ({}, {}) không hợp lệ", terrain_id, GetX(), GetY());
 	}
 
 	if (red_flash) {
@@ -691,7 +691,7 @@ void Game_Player::UpdateEncounterSteps() {
 
 	const auto* terrain = lcf::ReaderUtil::GetElement(lcf::Data::terrains, Game_Map::GetTerrainTag(x,y));
 	if (!terrain) {
-		Output::Warning("UpdateEncounterSteps: Invalid terrain at ({}, {})", x, y);
+		Output::Warning("UpdateEncounterSteps: Địa hình không hợp lệ ở vị trí ({}, {})", x, y);
 		return;
 	}
 

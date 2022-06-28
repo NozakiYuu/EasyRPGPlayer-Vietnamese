@@ -50,7 +50,7 @@ void Scene_ActorTarget::Start() {
 	if (use_item) {
 		const lcf::rpg::Item* item = lcf::ReaderUtil::GetElement(lcf::Data::items, id);
 		if (!item) {
-			Output::Warning("Scene ActorTarget: Invalid item ID {}", id);
+			Output::Warning("Scene ActorTarget: ID vật phẩm {} không hợp lệ", id);
 			Scene::Pop();
 			return;
 		}
@@ -58,7 +58,7 @@ void Scene_ActorTarget::Start() {
 		if (item->type == lcf::rpg::Item::Type_special) {
 			skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, item->skill_id);
 			if (!skill) {
-				Output::Warning("Scene ActorTarget: Item {} has invalid skill ID {}", id, item->skill_id);
+				Output::Warning("Scene ActorTarget: Vật phẩm {} có ID kĩ năng {} không hợp lệ", id, item->skill_id);
 				Scene::Pop();
 				return;
 			}
@@ -76,7 +76,7 @@ void Scene_ActorTarget::Start() {
 	} else {
 		const lcf::rpg::Skill* skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, id);
 		if (!skill) {
-			Output::Warning("Scene ActorTarget: Invalid skill ID {}", id);
+			Output::Warning("Scene ActorTarget: ID kĩ năng {} không hợp lệ", id);
 			Scene::Pop();
 			return;
 		}
@@ -164,7 +164,7 @@ void Scene_ActorTarget::UpdateSkill() {
 				Main_Data::game_system->SePlay(*animation);
 			}
 			else {
-				Output::Warning("UpdateSkill: Skill {} references invalid animation {}", id, skill->animation_id);
+				Output::Warning("UpdateSkill: Kĩ năng {} có liên quan tới hiệu ứng {} không hợp lệ", id, skill->animation_id);
 			}
 		}
 		else {

@@ -29,7 +29,7 @@ bool ImageXYZ::ReadXYZ(const uint8_t* data, unsigned len, bool transparent,
 	pixels = nullptr;
 
 	if (len < 8) {
-		Output::Warning("Not a valid XYZ file.");
+		Output::Warning("Không phải tệp tin XYZ hợp lệ.");
 		return false;
 	}
 
@@ -42,14 +42,14 @@ bool ImageXYZ::ReadXYZ(const uint8_t* data, unsigned len, bool transparent,
 
 	int status = uncompress(&dst_buffer.front(), &dst_size, src_buffer, src_size);
 	if (status != Z_OK) {
-		Output::Warning("Error decompressing XYZ file.");
+		Output::Warning("Lỗi giải nén tệp tin XYZ.");
 		return false;
 	}
 	const uint8_t (*palette)[3] = (const uint8_t(*)[3]) &dst_buffer.front();
 
 	pixels = malloc(w * h * 4);
 	if (!pixels) {
-		Output::Warning("Error allocating XYZ pixel buffer.");
+		Output::Warning("Lỗi phân bổ bộ đệm pixel XYZ.");
 		return false;
 	}
 

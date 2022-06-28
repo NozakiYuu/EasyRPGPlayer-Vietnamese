@@ -209,7 +209,7 @@ void Scene_Title::CreateCommandWindow() {
 
 	// Set "Translate" based on metadata
 	if (Player::translation.HasTranslations()) {
-		options.push_back(Player::meta->GetExVocabTranslateTitleText());
+		options.push_back("Ngôn ngữ");
 		indices.translate = indices.exit;
 		indices.exit++;
 	}
@@ -242,9 +242,9 @@ void Scene_Title::CreateCommandWindow() {
 void Scene_Title::CreateTranslationWindow() {
 	// Build a list of 'Default' and all known languages.
 	std::vector<std::string> lang_names;
-	lang_names.push_back("Default Language");
+	lang_names.push_back("Ngôn ngữ mặc định");
 	lang_dirs.push_back("");
-	lang_helps.push_back("Play the game in its original language.");
+	lang_helps.push_back("Chơi trò chơi ở ngôn ngữ gốc của nó.");
 
 	// Push menu entries with the display name, but also save the directory location and help text.
 	for (const Language& lg : Player::translation.GetLanguages()) {
@@ -290,7 +290,7 @@ bool Scene_Title::CheckValidPlayerLocation() {
 
 void Scene_Title::CommandNewGame() {
 	if (!CheckValidPlayerLocation()) {
-		Output::Warning("The game has no start location set.");
+		Output::Warning("Trò chơi này không có vị trí bắt đầu.");
 	} else {
 		Output::Debug("Starting new game");
 		Main_Data::game_system->SePlay(Main_Data::game_system->GetSystemSE(Main_Data::game_system->SFX_Decision));

@@ -53,14 +53,14 @@ static bool EasyCall(dyn_arg_list args) {
 
 	if (token.empty()) {
 		// empty function name
-		Output::Warning("call: Empty RPGSS function name");
+		Output::Warning("call: Không có tên hàm RPGSS");
 
 		return true;
 	}
 
 	if (!DynRpg::HasFunction(token)) {
 		// Not a supported function
-		Output::Warning("Unsupported RPGSS function: {}", token);
+		Output::Warning("Hàm RPGSS không được hỗ trợ: {}", token);
 		return true;
 	}
 
@@ -96,7 +96,7 @@ void DynRpg::EasyRpgPlugin::RegisterFunctions() {
 
 void DynRpg::EasyRpgPlugin::Load(const std::vector<uint8_t>& buffer) {
 	if (buffer.size() < 4) {
-		Output::Warning("EasyRpgPlugin: Bad savegame data");
+		Output::Warning("EasyRpgPlugin: Tệp tin lưu trò chơi bị hỏng");
 	} else {
 		uint32_t ver;
 		memcpy(&ver, buffer.data(), 4);

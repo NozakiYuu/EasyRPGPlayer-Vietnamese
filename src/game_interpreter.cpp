@@ -101,7 +101,7 @@ void Game_Interpreter::Push(
 	}
 
 	if ((int)_state.stack.size() > call_stack_limit) {
-		Output::Error("Call Event limit ({}) has been exceeded", call_stack_limit);
+		Output::Error("Vượt quá giới hạn gọi sự kiện ({})", call_stack_limit);
 	}
 
 	lcf::rpg::SaveEventExecFrame frame;
@@ -820,7 +820,7 @@ bool Game_Interpreter::OnFinishStackFrame() {
 	if (is_base_frame && event_id > 0) {
 		Game_Event* evnt = Game_Map::GetEvent(event_id);
 		if (!evnt) {
-			Output::Error("Call stack finished with invalid event id {}. This can be caused by a vehicle teleport?", event_id);
+			Output::Error("Quá trình gọi sự kiện được kết thúc bởi ID sự kiện {} không hợp lệ. Lỗi này được gây ra bởi sự dịch chuyển của một phương tiện?", event_id);
 		} else if (main_flag) {
 			evnt->OnFinishForegroundEvent();
 		}
@@ -1095,7 +1095,7 @@ bool Game_Interpreter::CommandControlVariables(lcf::rpg::EventCommand const& com
 			actor = Main_Data::game_actors->GetActor(com.parameters[5]);
 
 			if (!actor) {
-				Output::Warning("ControlVariables: Invalid actor ID {}", com.parameters[5]);
+				Output::Warning("ControlVariables: ID nhân vật {} không hợp lệ", com.parameters[5]);
 				return true;
 			}
 
@@ -1564,7 +1564,7 @@ std::vector<Game_Actor*> Game_Interpreter::GetActors(int mode, int id) {
 		actor = Main_Data::game_actors->GetActor(id);
 
 		if (!actor) {
-			Output::Warning("Invalid actor ID {}", id);
+			Output::Warning("ID nhân vật {} không hợp lệ", id);
 			return actors;
 		}
 
@@ -1574,7 +1574,7 @@ std::vector<Game_Actor*> Game_Interpreter::GetActors(int mode, int id) {
 		// Var hero
 		actor = Main_Data::game_actors->GetActor(Main_Data::game_variables->Get(id));
 		if (!actor) {
-			Output::Warning("Invalid actor ID {}", Main_Data::game_variables->Get(id));
+			Output::Warning("ID nhân vật {} không hợp lệ", Main_Data::game_variables->Get(id));
 			return actors;
 		}
 
@@ -1591,14 +1591,14 @@ Game_Character* Game_Interpreter::GetCharacter(int event_id) const {
 		// Is a common event
 		if (event_id == 0) {
 			// With no map parent
-			Output::Warning("Can't use ThisEvent in common event: Not called from a map event");
+			Output::Warning("Không thể sử dụng ThisEvent trong sự kiện chung: Sự kiện này không được gọi từ một sự kiện trong bản đồ");
 			return nullptr;
 		}
 	}
 
 	Game_Character* ch = Game_Character::GetCharacter(event_id, event_id);
 	if (!ch) {
-		Output::Warning("Unknown event with id {}", event_id);
+		Output::Warning("ID sự kiện {} không được xác định", event_id);
 	}
 	return ch;
 }
@@ -1692,7 +1692,7 @@ bool Game_Interpreter::CommandChangePartyMember(lcf::rpg::EventCommand const& co
 	actor = Main_Data::game_actors->GetActor(id);
 
 	if (!actor) {
-		Output::Warning("ChangePartyMember: Invalid actor ID {}", id);
+		Output::Warning("ChangePartyMember: ID nhân vật {} không hợp lệ", id);
 		return true;
 	}
 
@@ -1866,7 +1866,7 @@ bool Game_Interpreter::CommandChangeEquipment(lcf::rpg::EventCommand const& com)
 									  com.parameters[4]);
 			item = lcf::ReaderUtil::GetElement(lcf::Data::items, item_id);
 			if (!item) {
-				Output::Warning("ChangeEquipment: Invalid item ID {}", item_id);
+				Output::Warning("ChangeEquipment: ID vật phẩm {} không hợp lệ", item_id);
 				return true;
 			}
 
@@ -2135,7 +2135,7 @@ bool Game_Interpreter::CommandChangeHeroName(lcf::rpg::EventCommand const& com) 
 	Game_Actor* actor = Main_Data::game_actors->GetActor(com.parameters[0]);
 
 	if (!actor) {
-		Output::Warning("ChangeHeroName: Invalid actor ID {}", com.parameters[0]);
+		Output::Warning("ChangeHeroName: ID nhân vật {} không hợp lệ", com.parameters[0]);
 		return true;
 	}
 
@@ -2147,7 +2147,7 @@ bool Game_Interpreter::CommandChangeHeroTitle(lcf::rpg::EventCommand const& com)
 	Game_Actor* actor = Main_Data::game_actors->GetActor(com.parameters[0]);
 
 	if (!actor) {
-		Output::Warning("ChangeHeroTitle: Invalid actor ID {}", com.parameters[0]);
+		Output::Warning("ChangeHeroTitle: ID nhân vật {} không hợp lệ", com.parameters[0]);
 		return true;
 	}
 
@@ -2159,7 +2159,7 @@ bool Game_Interpreter::CommandChangeSpriteAssociation(lcf::rpg::EventCommand con
 	Game_Actor* actor = Main_Data::game_actors->GetActor(com.parameters[0]);
 
 	if (!actor) {
-		Output::Warning("ChangeSpriteAssociation: Invalid actor ID {}", com.parameters[0]);
+		Output::Warning("ChangeSpriteAssociation: ID nhân vật {} không hợp lệ", com.parameters[0]);
 		return true;
 	}
 
@@ -2175,7 +2175,7 @@ bool Game_Interpreter::CommandChangeActorFace(lcf::rpg::EventCommand const& com)
 	Game_Actor* actor = Main_Data::game_actors->GetActor(com.parameters[0]);
 
 	if (!actor) {
-		Output::Warning("CommandChangeActorFace: Invalid actor ID {}", com.parameters[0]);
+		Output::Warning("CommandChangeActorFace: ID nhân vật {} không hợp lệ", com.parameters[0]);
 		return true;
 	}
 
@@ -2188,7 +2188,7 @@ bool Game_Interpreter::CommandChangeVehicleGraphic(lcf::rpg::EventCommand const&
 	Game_Vehicle* vehicle = Game_Map::GetVehicle(vehicle_id);
 
 	if (!vehicle) {
-		Output::Warning("ChangeVehicleGraphic: Invalid vehicle ID {}", vehicle_id);
+		Output::Warning("ChangeVehicleGraphic: ID phương tiện {} không hợp lệ", vehicle_id);
 		return true;
 	}
 
@@ -2262,7 +2262,7 @@ bool Game_Interpreter::CommandSetVehicleLocation(lcf::rpg::EventCommand const& c
 			// 0 because we adjust all vehicle IDs by +1 to match the lcf values
 			Output::Debug("SetVehicleLocation: Party referenced");
 		} else {
-			Output::Warning("SetVehicleLocation: Invalid vehicle ID {}", vehicle_id);
+			Output::Warning("SetVehicleLocation: ID phương tiện {} không hợp lệ", vehicle_id);
 			return true;
 		}
 	}
@@ -2293,7 +2293,7 @@ bool Game_Interpreter::CommandSetVehicleLocation(lcf::rpg::EventCommand const& c
 
 		auto event_id = GetOriginalEventId();
 		if (!main_flag && event_id != 0) {
-			Output::Error("VehicleTeleport not allowed from parallel map event! Id={}", event_id);
+			Output::Error("Dịch chuyển phương tiện không cho phép thực hiện từ một sự kiện bản đồ song song! Id={}", event_id);
 		}
 
 		_async_op = AsyncOp::MakeQuickTeleport(map_id, x, y);
@@ -2827,7 +2827,7 @@ bool Game_Interpreter::CommandShowPicture(lcf::rpg::EventCommand const& com) { /
 	params.bottom_trans = std::max(0, std::min(params.bottom_trans, 100));
 
 	if (pic_id <= 0) {
-		Output::Error("ShowPicture: Requested invalid picture id ({})", pic_id);
+		Output::Error("ShowPicture: Đã yêu cầu ID hình ảnh không hợp lệ ({})", pic_id);
 	}
 
 	// RPG_RT will crash if you ask for a picture id greater than the limit that
@@ -2923,7 +2923,7 @@ bool Game_Interpreter::CommandMovePicture(lcf::rpg::EventCommand const& com) { /
 	params.duration = std::max(Player::IsPatchManiac() ? -10000 : 0, std::min(params.duration, 10000));
 
 	if (pic_id <= 0) {
-		Output::Error("MovePicture: Requested invalid picture id ({})", pic_id);
+		Output::Error("MovePicture: Đã yêu cầu ID hình ảnh không hợp lệ ({})", pic_id);
 	}
 
 	Main_Data::game_pictures->Move(pic_id, params);
@@ -2996,7 +2996,7 @@ bool Game_Interpreter::CommandErasePicture(lcf::rpg::EventCommand const& com) { 
 
 		for (int i = pic_id; i <= pic_id_max; ++i) {
 			if (i <= 0) {
-				Output::Error("ErasePicture: Requested invalid picture id ({})", i);
+				Output::Error("ErasePicture: Đã yêu cầu ID hình ảnh không hợp lệ ({})", i);
 			}
 
 			Main_Data::game_pictures->Erase(i);
@@ -3005,7 +3005,7 @@ bool Game_Interpreter::CommandErasePicture(lcf::rpg::EventCommand const& com) { 
 		PicPointerPatch::AdjustId(pic_id);
 
 		if (pic_id <= 0) {
-			Output::Error("ErasePicture: Requested invalid picture id ({})", pic_id);
+			Output::Error("ErasePicture: Đã yêu cầu ID hình ảnh không hợp lệ ({})", pic_id);
 		}
 
 		Main_Data::game_pictures->Erase(pic_id);
@@ -3246,7 +3246,7 @@ bool Game_Interpreter::CommandKeyInputProc(lcf::rpg::EventCommand const& com) { 
 			bool result = (com.parameters[idx] & 2) != 0;
 #if !defined(USE_MOUSE) || !defined(SUPPORT_MOUSE)
 			if (result) {
-				Output::Warning("ManiacPatch: Mouse input is not supported on this platform");
+				Output::Warning("ManiacPatch: Hệ điều hành này không hỗ trợ chuột");
 				result = false;
 			}
 #endif
@@ -3442,7 +3442,7 @@ bool Game_Interpreter::CommandConditionalBranch(lcf::rpg::EventCommand const& co
 		actor = Main_Data::game_actors->GetActor(actor_id);
 
 		if (!actor) {
-			Output::Warning("ConditionalBranch: Invalid actor ID {}", actor_id);
+			Output::Warning("ConditionalBranch: ID nhân vật {} không hợp lệ", actor_id);
 			// Use Else Branch
 			SetSubcommandIndex(com.indent, 1);
 			SkipToNextConditional({Cmd::ElseBranch, Cmd::EndBranch}, com.indent);
@@ -3501,7 +3501,7 @@ bool Game_Interpreter::CommandConditionalBranch(lcf::rpg::EventCommand const& co
 		Game_Vehicle* vehicle = Game_Map::GetVehicle(vehicle_id);
 
 		if (!vehicle) {
-			Output::Warning("ConditionalBranch: Invalid vehicle ID {}", vehicle_id);
+			Output::Warning("ConditionalBranch: ID phương tiện {} không hợp lệ", vehicle_id);
 			return true;
 		}
 
@@ -3550,7 +3550,7 @@ bool Game_Interpreter::CommandConditionalBranch(lcf::rpg::EventCommand const& co
 		}
 		break;
 	default:
-		Output::Warning("ConditionalBranch: Branch {} unsupported", com.parameters[0]);
+		Output::Warning("ConditionalBranch: Câu lệnh rẽ nhánh {} không được hỗ trợ", com.parameters[0]);
 	}
 
 
@@ -3796,7 +3796,7 @@ bool Game_Interpreter::CommandCallEvent(lcf::rpg::EventCommand const& com) { // 
 		evt_id = com.parameters[1];
 		Game_CommonEvent* common_event = lcf::ReaderUtil::GetElement(Game_Map::GetCommonEvents(), evt_id);
 		if (!common_event) {
-			Output::Warning("CallEvent: Can't call invalid common event {}", evt_id);
+			Output::Warning("CallEvent: Không thể gọi sự kiện chung {} không hợp lệ", evt_id);
 			return true;
 		}
 
@@ -3818,13 +3818,13 @@ bool Game_Interpreter::CommandCallEvent(lcf::rpg::EventCommand const& com) { // 
 
 	Game_Event* event = static_cast<Game_Event*>(GetCharacter(evt_id));
 	if (!event) {
-		Output::Warning("CallEvent: Can't call non-existant event {}", evt_id);
+		Output::Warning("CallEvent: Không thể gọi sự kiện {} không tồn tại", evt_id);
 		return false;
 	}
 
 	const lcf::rpg::EventPage* page = event->GetPage(event_page);
 	if (!page) {
-		Output::Warning("CallEvent: Can't call non-existant page {} of event {}", event_page, evt_id);
+		Output::Warning("CallEvent: Không thể gọi trang {} không tồn tại trong sự kiện {}", event_page, evt_id);
 		return false;
 	}
 
@@ -3858,7 +3858,7 @@ bool Game_Interpreter::CommandChangeClass(lcf::rpg::EventCommand const& com) { /
 
 	const lcf::rpg::Class* cls = lcf::ReaderUtil::GetElement(lcf::Data::classes, class_id);
 	if (!cls && class_id != 0) {
-		Output::Warning("ChangeClass: Can't change class. Class {} is invalid", class_id);
+		Output::Warning("ChangeClass: Không thể thay đổi chức nghiệp {} không hợp lệ", class_id);
 		return true;
 	}
 
@@ -4045,7 +4045,7 @@ bool Game_Interpreter::CommandManiacGetMousePosition(lcf::rpg::EventCommand cons
 	static bool warned = false;
 	if (!warned) {
 		// This command is polled, prevent excessive spam
-		Output::Warning("Maniac Patch: Mouse input is not supported on this platform");
+		Output::Warning("Maniac Patch: Hệ điều hành này không hỗ trợ chuột");
 		warned = true;
 	}
 	return true;
@@ -4066,7 +4066,7 @@ bool Game_Interpreter::CommandManiacSetMousePosition(lcf::rpg::EventCommand cons
 		return true;
 	}
 
-	Output::Warning("Maniac Patch: Command SetMousePosition not supported");
+	Output::Warning("Maniac Patch: Lệnh SetMousePosition không được hỗ trợ");
 	return true;
 }
 
@@ -4075,7 +4075,7 @@ bool Game_Interpreter::CommandManiacShowStringPicture(lcf::rpg::EventCommand con
 		return true;
 	}
 
-	Output::Warning("Maniac Patch: Command ShowStringPicture not supported");
+	Output::Warning("Maniac Patch: Lệnh ShowStringPicture không được hỗ trợ");
 	return true;
 }
 
@@ -4234,7 +4234,7 @@ bool Game_Interpreter::CommandManiacControlVarArray(lcf::rpg::EventCommand const
 			Main_Data::game_variables->BitShiftRightArray(target_a, last_target_a, target_b);
 			break;
 		default:
-			Output::Warning("ManiacControlVarArray: Unknown operation {}", op);
+			Output::Warning("ManiacControlVarArray: Lệnh {} không được xác định", op);
 	}
 
 	Game_Map::SetNeedRefresh(true);
@@ -4247,7 +4247,7 @@ bool Game_Interpreter::CommandManiacKeyInputProcEx(lcf::rpg::EventCommand const&
 		return true;
 	}
 
-	Output::Warning("Maniac Patch: Command KeyInputProcEx not supported");
+	Output::Warning("Maniac Patch: Lệnh KeyInputProcEx không được hỗ trợ");
 	return true;
 }
 
@@ -4256,7 +4256,7 @@ bool Game_Interpreter::CommandManiacRewriteMap(lcf::rpg::EventCommand const&) {
 		return true;
 	}
 
-	Output::Warning("Maniac Patch: Command RewriteMap not supported");
+	Output::Warning("Maniac Patch: Lệnh RewriteMap không được hỗ trợ");
 	return true;
 }
 
@@ -4265,7 +4265,7 @@ bool Game_Interpreter::CommandManiacControlGlobalSave(lcf::rpg::EventCommand con
 		return true;
 	}
 
-	Output::Warning("Maniac Patch: Command ControlGlobalSave not supported");
+	Output::Warning("Maniac Patch: Lệnh ControlGlobalSave không được hỗ trợ");
 	return true;
 }
 
@@ -4274,7 +4274,7 @@ bool Game_Interpreter::CommandManiacChangePictureId(lcf::rpg::EventCommand const
 		return true;
 	}
 
-	Output::Warning("Maniac Patch: Command ChangePictureId not supported");
+	Output::Warning("Maniac Patch: Lệnh ChangePictureId không được hỗ trợ");
 	return true;
 }
 
@@ -4283,7 +4283,7 @@ bool Game_Interpreter::CommandManiacSetGameOption(lcf::rpg::EventCommand const&)
 		return true;
 	}
 
-	Output::Warning("Maniac Patch: Command SetGameOption not supported");
+	Output::Warning("Maniac Patch: Lệnh SetGameOption không được hỗ trợ");
 	return true;
 }
 
@@ -4292,7 +4292,7 @@ bool Game_Interpreter::CommandManiacCallCommand(lcf::rpg::EventCommand const&) {
 		return true;
 	}
 
-	Output::Warning("Maniac Patch: Command CallCommand not supported");
+	Output::Warning("Maniac Patch: Lệnh CallCommand không được hỗ trợ");
 	return true;
 }
 

@@ -31,7 +31,7 @@ Scene_Name::Scene_Name(int actor_id, int charset, bool use_default_name)
 
 	auto *actor = Main_Data::game_actors->GetActor(actor_id);
 	if (!actor) {
-		Output::Error("EnterHeroName: Invalid actor ID {}", actor_id);
+		Output::Error("EnterHeroName: ID nhân vật {} không hợp lệ", actor_id);
 	}
 }
 

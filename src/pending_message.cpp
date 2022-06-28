@@ -110,7 +110,7 @@ std::string PendingMessage::ApplyTextInsertingCommands(std::string input, uint32
 
 			const auto* actor = Main_Data::game_actors->GetActor(value);
 			if (!actor) {
-				Output::Warning("Invalid Actor Id {} in message text", value);
+				Output::Warning("ID nhân vật {} không hợp lệ ở dòng chữ trong tin nhắn", value);
 			} else{
 				output.append(ToString(actor->GetName()));
 			}

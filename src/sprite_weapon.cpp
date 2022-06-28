@@ -53,7 +53,7 @@ void Sprite_Weapon::Update() {
 
 	const lcf::rpg::BattlerAnimation* anim = lcf::ReaderUtil::GetElement(lcf::Data::battleranimations, battler->GetBattleAnimationId());
 	if (!anim) {
-		Output::Warning("Invalid battler animation ID {}", battler->GetBattleAnimationId());
+		Output::Warning("ID hiệu ứng nhân vật {} không hợp lệ", battler->GetBattleAnimationId());
 		return;
 	}
 
@@ -90,13 +90,13 @@ void Sprite_Weapon::StartAttack(bool secondary_weapon) {
 	if (battler->GetBattleAnimationId() > 0) {
 		const lcf::rpg::BattlerAnimation* anim = lcf::ReaderUtil::GetElement(lcf::Data::battleranimations, battler->GetBattleAnimationId());
 		if (!anim) {
-			Output::Warning("Invalid battler animation ID {}", battler->GetBattleAnimationId());
+			Output::Warning("ID hiệu ứng nhân vật {} không hợp lệ", battler->GetBattleAnimationId());
 			return;
 		}
 
 		const auto* battler_animation_weapon = lcf::ReaderUtil::GetElement(anim->weapons, weapon_animation_id);
 		if (!battler_animation_weapon) {
-			Output::Warning("Invalid weapon animation ID {}", weapon_animation_id);
+			Output::Warning("ID hiệu ứng vũ khí {} không hợp lệ", weapon_animation_id);
 			return;
 		}
 

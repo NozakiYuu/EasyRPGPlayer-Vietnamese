@@ -1,123 +1,162 @@
-# Building
+# Tài liệu dành cho xây dựng
 
-## Dependencies:
+## Các thư viện
 
-If your operating system has a package manager, we recommend installing the
-dependencies with it.
+Nếu hệ điều hành của bạn có một trình quản lý thư viện thì hãy sử dụng nó để cài đặt các thư viện, ví dụ như [vcpkg](https://github.com/Microsoft/vcpkg) ở trên Windows hoặc [Advanced Packaging Tool](https://wiki.debian.org/Apt) (apt) ở trên Ubuntu.
 
-In case you want to compile the dependencies yourself, you can find them,
-except for [liblcf], in our [buildscripts] repository.
+Trong trường hợp bạn muốn tự xây dựng các thư viện đó thì bạn có thể tham khảo script xây dựng các thư viện (trừ thư viện [liblcf], bằng tiếng Anh) tại trang [buildscripts] của EasyRPG.
 
 
-## Autotools Makefile method:
+## Xây dựng ứng dụng trên Linux
 
-Building requirements:
+### Sử dụng Autotools (Makefile)
+
+Phương thức xây dựng này đã được thử nghiệm thành công bởi nhà phát triển của bản tiếng Việt.
+
+Yêu cầu các thư viện được đề cập ở phần [README](/README.md), phần *Các thư viện* ở bên trên và các ứng dụng sau:
 
 - pkg-config
 - GNU make
 
-Step-by-step instructions:
-
-    tar xf easyrpg-player-0.7.tar.xz # unpack the tarball
-    cd easyrpg-player-0.7            # enter in the package directory
-    ./configure                      # find libraries, set options
-    make                             # compile the executable
-
-Additional building requirements when using the source tree (git):
+Nếu bạn xây dựng ứng dụng từ mã nguồn có sẵn trên GitHub, bạn cần sử dụng thêm các ứng dụng này:
 
 - autoconf >= 2.69
 - automake >= 1.11.4
 - libtool
 
-To generate the "configure" script, run before following the above section:
+**Hướng dẫn chi tiết:**
 
-    autoreconf -i
+Mở ứng dụng Dòng lệnh (Terminal) ở trên máy tính của bạn và chạy các câu lệnh sau:
 
+    cd EasyRPGPlayer-Vietnamese      # Truy cập vào thư mục chứa mã nguồn
+	autoreconf -i                    # Cài đặt trước khi tìm thư viện
+    ./configure                      # Tìm thư viện và cài đặt trước khi xây dựng
+    make                             # Biên dịch và xây dụng ứng dụng
+	
+Sau khi xây dựng, một tệp tin `easyrpg-player` sẽ xuất hiện ở thư mục chứa mã nguồn. Đây là tệp tin ứng dụng dùng để gỡ lỗi và không nên sử dụng để chia sẻ lên công khai.
 
-## CMake method:
+### Sử dụng CMake
 
-Building requirements:
+Phương thức này chưa được thử nghiệm ở trên Linux và có thể sẽ có lỗi phát sinh.
 
-- pkg-config (only on Linux)
-- CMake 3.10 or newer
+Yêu cầu các thư viện được đề cập ở phần [README](/README.md), phần *Các thư viện* ở bên trên và các ứng dụng sau:
 
-Step-by-step instructions:
+- pkg-config (chỉ ở trên Linux)
+- CMake 3.10 hoặc cao hơn
 
-    tar xf easyrpg-player-0.7.tar.xz      # unpack the tarball
-    cd easyrpg-player-0.7                 # enter in the package directory
-    cmake . -DCMAKE_BUILD_TYPE=Release    # configure project
-    cmake --build .                       # compile the executable
-    sudo cmake --build . --target install # install system-wide
+**Hướng dẫn chi tiết:**
 
-CMake is the only supported way to build Player for Windows. All dependencies
-must be installed with [vcpkg].
+Mở ứng dụng Dòng lệnh (Terminal) ở trên máy tính của bạn và chạy các câu lệnh sau:
 
+    cd EasyRPGPlayer-Vietnamese           # Truy cập vào thư mục chứa mã nguồn
+    cmake . -DCMAKE_BUILD_TYPE=Release    # Tìm thư viện và cài đặt trước khi xây dựng
+    cmake --build .                       # Biên dịch và xây dựng ứng dụng
+    sudo cmake --build . --target install # Cài đặt ứng dụng trên toàn bộ hệ thống của hệ điều hành
+	
+## Windows
 
-## libretro core:
+Ở trên Windows, cách duy nhất để xây dựng ứng dụng Player là sử dụng CMake và Visual Studio. Cách xây dựng gốc của EasyRPG có thể sẽ có lỗi phát sinh, nên đây là cách xây dựng tốt nhất được nghĩ ra bởi Nozaki Yuu và [toaranotdev](https://github.com/toaranotdev):
 
-Building for libretro is based on the CMake method.
+Yêu cầu các ứng dụng sau trước khi bắt đầu xây dựng:
 
-Additional commands required before building:
+- CMake 3.10 hoặc cao hơn
+- [Visual Studio 2019](https://visualstudio.microsoft.com/vs/older-downloads) hoặc cao hơn
+- [Git](https://git-scm.com/download/win)
 
-    git submodule init   # Init submodules
-    git submodule update # Clone libretro-common submodule
+**Hướng dẫn chi tiết:**
 
-Invoke CMake with these additional parameters:
+### Xây dựng thư viện
 
-    -DPLAYER_TARGET_PLATFORM=libretro -DBUILD_SHARED_LIBS=ON|OFF
+Mở Command Prompt (Dấu nhắc lệnh) và dùng lệnh `cd` để trỏ tới thư mục bạn muốn. Sau đó sử dụng các câu lệnh sau:
 
-Set shared libs to ON or OFF depending on which type of libraries RetroArch
-uses on the platform you are targeting.
+	git clone https://github.com/EasyRPG/buildscripts.git		# Tải công cụ xây dựng thư viện của EasyRPG
+	cd buildscripts\windows										# Trỏ tới thư mục xây dựng thư viện trên Windows
+	.\build														# Bắt đầu xây dựng thư viện trên Windows
+	vcpkg integrate install										# Liên kết vcpkg với CMake
+	
+Nếu thời gian xây dựng của bạn quá lâu, bạn cũng có thể tải thư viện đã được xây dựng sẵn tại trang web https://ci.easyrpg.org/view/Windows/job/toolchain-windows và giải nén nó vào thư mục của vcpkg.
+	
+Sau khi thực hiện các câu lệnh trên, các thư viện được yêu cầu đã được cài đặt và đã sẵn sàng để thêm vào CMake.
 
+Hãy nhớ thư mục của vcpkg vì bạn sẽ cần sử dụng nó để thực hiện các lệnh ở bên dưới. Dùng lệnh `cd` để trỏ tới thư mục chứa mã nguồn.
 
-## Android APK:
+### Cài đặt dự án
 
-Building requirements:
+Thực hiện các lệnh sau tuỳ theo phiên bản Player mà bạn muốn xây dựng.
 
-- Android SDK with NDK r21
+#### Bản 32-bit:
 
-Step-by-step instructions:
+	cmake . -DSHARED_RUNTIME=OFF -DVCPKG_TARGET_TRIPLET=x86-windows-static -DCMAKE_TOOLCHAIN_FILE=(đường dẫn vcpkg)\scripts\buildsystems\vcpkg.cmake
+	-DCMAKE_BUILD_TYPE=(loại xây dựng) -DPLAYER_BUILD_LIBLCF=ON -A Win32
+	
+Trong đó, `(đường dẫn vcpkg)` là đường dẫn thư mục của vcpkg đã làm ở bước trên, còn `loại xây dựng` có thể là `Debug`, `Release` hoặc `RelWithDebInfo` tuỳ theo mục đích sử dụng của bạn.
 
-    tar xf easyrpg-player-0.7.tar.xz     # unpack the tarball
-    cd easyrpg-player-0.7/builds/android # enter in the android directory
-    ./gradlew -PtoolchainDirs="DIR1;DIR2" assembleRelease # create the APK
+Khi đó, dự án để xây dựng Player sẽ được cài đặt. Tuy nhiên ở một số máy có thể sẽ bị lỗi thư viện fmt, khi đó bạn hãy dùng một trình chỉnh sửa (ví dụ như Notepad) và mở tệp tin sau:
 
-Replace ``DIR1`` etc. with the path to the player dependencies. You can use
-the scripts in the ``android`` folder of our [buildscripts] to compile them.
+	(đường dẫn vcpkg)\installed\x86-windows-static\share\fmt\fmt-config-version.cmake
+	
+Và xoá dòng `set(PACKAGE_VERSION_UNSUITABLE TRUE)`. Sau đó hãy thực hiện lại lệnh trên và dự án bây giờ đã có thể cài đặt được bình thường.
 
-To pass additional CMake arguments use ``-PcmakeOptions``:
+#### Bản 64-bit:
 
-    -PcmakeOptions="-DSOME_OPTION1=ON -DSOME_OPTION2=OFF"
+Bản 64-bit chỉ có thể được xây dựng khi bạn đang sử dụng Windows bản 64-bit.
 
-The unsigned APK is stored in:
+	cmake . -DSHARED_RUNTIME=OFF -DVCPKG_TARGET_TRIPLET=x64-windows-static -DCMAKE_TOOLCHAIN_FILE=(đường dẫn vcpkg)\scripts\buildsystems\vcpkg.cmake
+	-DCMAKE_BUILD_TYPE=(loại xây dựng) -DPLAYER_BUILD_LIBLCF=ON -A x64
+	
+Trong đó, `(đường dẫn vcpkg)` là đường dẫn thư mục của vcpkg đã làm ở bước trên, còn `loại xây dựng` có thể là `Debug`, `Release` hoặc `RelWithDebInfo` tuỳ theo mục đích sử dụng của bạn.
+	
+Sau đó dự án sẽ được cài đặt bình thường và không có lỗi nào xảy ra cả.
 
-    app/build/outputs/apk/release/app-release-unsigned.apk
+Lưu ý rằng nếu bạn chuyển đổi cài đặt giữa bản 32-bit và bản 64-bit, bạn cần xoá thư mục `CMakeFiles` và tệp tin `CMakeCache.txt`.
 
+### Xây dựng ứng dụng
 
-## Nintendo and Sony Homebrew ports (Wii, 3DS, Switch, PSVita/PSTV)
+Sau khi làm tất cả các bước trên, mở tệp tin `EasyRPG_Player.sln` bằng Visual Studio bản 2019 hoặc cao hơn, thay đổi Build Type thành `Debug`, `Release` hoặc `RelWithDebInfo` tuỳ theo mục đích sử dụng của bạn và nhấn nút `Build -> Build Solution` (hoặc tổ hợp `Ctrl + Shift + B`).
 
-This is based on the CMake method.
+Bạn cũng có thể xây dựng bằng cách dùng lệnh sau:
 
-Building requirements:
+	cmake --build .
+	
+nhưng lỗi `Debug Assertion Error` khi chạy ứng dụng sẽ có thể xảy ra. Nên dùng Visual Studio để xây dựng như ở cách trên.
 
-- devkitPPC for Wii
-- devkitARM for 3DS
-- devkitA64 for Switch
-- vitasdk for PSVita/PSTV
+Sau khi xây dựng xong, một tệp tin `Player.exe` sẽ xuất hiện ở thư mục `Debug`, `Release` hoặc `RelWithDebInfo` tuỳ theo Build Type mà bạn đã chọn.
 
-You can get them at devkitPro: https://devkitpro.org/wiki/Getting_Started
-and vitasdk: https://vitasdk.org
+## Android
 
-Invoke CMake with these additional parameters:
+Phương thức này chưa được thử nghiệm và có thể sẽ có lỗi phát sinh.
 
-    -DCMAKE_TOOLCHAIN_FILE=<DEVKITPRO>/cmake/3DS|Switch|Wii.cmake
-                         (or <VITASDK>/share/vita.toolchain.cmake)
-    -DPLAYER_TARGET_PLATFORM=3ds|switch|wii|psvita
+Khuyên dùng hệ điều hành Linux để thực hiện việc xây dựng, vì Windows có thể sẽ có lỗi trong quá trình xây dựng thư viện.
 
-Switch and 3DS support romfs game loading, use these parameters:
+Mở Terminal (Dòng lệnh) và chạy các câu lệnh sau:
 
-    -DPLAYER_ROMFS=ON -DPLAYER_ROMFS_PATH=path/to/myGame
+	git clone https://github.com/EasyRPG/buildscripts.git		# Tải công cụ xây dựng thư viện của EasyRPG
+	cd buildscripts/android										# Trỏ tới thư mục xây dựng thư viện trên Android
+	
+Tạo một KeyStore bằng Android Studio hoặc KeyStore Manager. Hướng dẫn tạo thì bạn có thể tìm hiểu ở trên Google.
 
+Dùng một trình chỉnh sửa văn bản (như Notepad) để mở tệp tin sau:
+
+	buildscripts/android/5_build_android_port.sh
+	
+Chỉnh sửa 3 biến sau ở trong tệp tin:
+
+- `KEYSTORE_PATH` = đường dẫn chứa tệp tin KeyStore mà bạn đã tạo ở bước trên
+- `KEYSTORE_PASSWORD` = mật khẩu của tệp tin KeyStore mà bạn đã nhập trong lúc tạo
+- `KEYSTORE_NAME` = tên của KeyStore, bạn có thể nhập tên bất kì nhưng không được chứa dấu cách
+
+Sau đó, chạy dòng lệnh sau ở cửa sổ dòng lệnh đang mở ở bước trên.
+
+	./0_build_everything.sh
+	
+Và đợi cho EasyRPG Player trên Android được xây dựng xong. Nếu có lỗi thư viện (`Cannot find -l<tên thư viện>`) bạn có thể tìm tên thư viện đó và chạy lại lệnh:
+
+	./5_build_android_port.sh
+	
+
+## Hệ điều hành khác
+
+Để xem cách xây dựng cho các hệ điều hành khác, bạn có thể tham khảo [hướng dẫn xây dựng bằng tiếng Anh](https://github.com/EasyRPG/Player/blob/master/docs/BUILDING.md). Các cách ở trong trang đó vẫn chưa được thử nghiệm bởi nhà phát triển bản tiếng Việt nên có thể sẽ có lỗi phát sinh.
 
 [buildscripts]: https://github.com/EasyRPG/buildscripts
 [liblcf]: https://github.com/EasyRPG/liblcf

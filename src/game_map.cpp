@@ -165,11 +165,11 @@ void Game_Map::Setup(std::unique_ptr<lcf::rpg::Map> map_in) {
 			break;
 		}
 		if (parent_index == current_index) {
-			Output::Warning("Map {} has parent pointing to itself!", current_index);
+			Output::Warning("Bản đồ {} đang có bản đồ mẹ chỉ đến chính nó!", current_index);
 			break;
 		}
 		if (parent_index < 0) {
-			Output::Warning("Map {} has invalid parent id {}!", lcf::Data::treemap.maps[current_index].ID, lcf::Data::treemap.maps[current_index].parent_map);
+			Output::Warning("Bản đồ {} đang có ID bản đồ mẹ {} không hợp lệ!", lcf::Data::treemap.maps[current_index].ID, lcf::Data::treemap.maps[current_index].parent_map);
 			break;
 		}
 		current_index = parent_index;
@@ -273,13 +273,13 @@ std::unique_ptr<lcf::rpg::Map> Game_Map::loadMapFile(int map_id) {
 		map_file = FileFinder::Game().FindFile(map_name);
 
 		if (map_file.empty()) {
-			Output::Error("Loading of Map {} failed.\nThe map was not found.", map_name);
+			Output::Error("Không thể tải bản đồ {}.\nKhông tìm thấy bản đồ này.", map_name);
 			return nullptr;
 		}
 
 		auto map_stream = FileFinder::Game().OpenInputStream(map_file);
 		if (!map_stream) {
-			Output::Error("Loading of Map {} failed.\nMap not readable.", map_name);
+			Output::Error("Không thể tải bản đồ {}.\nBản đồ không thể đọc được.", map_name);
 			return nullptr;
 		}
 
@@ -294,7 +294,7 @@ std::unique_ptr<lcf::rpg::Map> Game_Map::loadMapFile(int map_id) {
 	} else {
 		auto map_stream = FileFinder::Game().OpenInputStream(map_file);
 		if (!map_stream) {
-			Output::Error("Loading of Map {} failed.\nMap not readable.", map_name);
+			Output::Error("Không thể tải bản đồ {}.\nBản đồ không thể đọc được.", map_name);
 			return nullptr;
 		}
 		map = lcf::LMU_Reader::LoadXml(map_stream);
@@ -633,7 +633,7 @@ bool Game_Map::CanLandAirship(int x, int y) {
 
 	const auto* terrain = lcf::ReaderUtil::GetElement(lcf::Data::terrains, GetTerrainTag(x, y));
 	if (!terrain) {
-		Output::Warning("CanLandAirship: Invalid terrain at ({}, {})", x, y);
+		Output::Warning("CanLandAirship: Địa hình không hợp lệ ở vị trí ({}, {})", x, y);
 		return false;
 	}
 	if (!terrain->airship_land) {
@@ -729,7 +729,7 @@ bool Game_Map::IsPassableTile(const Game_Character* self, int bit, int x, int y)
 	if (vehicle_type != Game_Vehicle::None) {
 		const auto* terrain = lcf::ReaderUtil::GetElement(lcf::Data::terrains, GetTerrainTag(x, y));
 		if (!terrain) {
-			Output::Warning("IsPassableTile: Invalid terrain at ({}, {})", x, y);
+			Output::Warning("IsPassableTile: Địa hình không hợp lệ ở vị trí ({}, {})", x, y);
 			return false;
 		}
 		if (vehicle_type == Game_Vehicle::Boat && !terrain->boat_pass) {
@@ -799,7 +799,7 @@ int Game_Map::GetBushDepth(int x, int y) {
 
 	const lcf::rpg::Terrain* terrain = lcf::ReaderUtil::GetElement(lcf::Data::terrains, GetTerrainTag(x,y));
 	if (!terrain) {
-		Output::Warning("GetBushDepth: Invalid terrain at ({}, {})", x, y);
+		Output::Warning("GetBushDepth: Địa hình không hợp lệ ở vị trí ({}, {})", x, y);
 		return 0;
 	}
 	return terrain->bush_depth;
@@ -1195,7 +1195,7 @@ std::vector<int> Game_Map::GetEncountersAt(int x, int y) {
 	std::function<bool(int)> is_acceptable = [=](int troop_id) {
 		const lcf::rpg::Troop* troop = lcf::ReaderUtil::GetElement(lcf::Data::troops, troop_id);
 		if (!troop) {
-			Output::Warning("GetEncountersAt: Invalid troop ID {} in encounter list", troop_id);
+			Output::Warning("GetEncountersAt: ID đội quân {} không hợp lệ trong danh sách xuất hiện", troop_id);
 			return false;
 		}
 
@@ -1279,7 +1279,7 @@ bool Game_Map::PrepareEncounter(BattleArgs& args) {
 	} else {
 		const auto* terrain = lcf::ReaderUtil::GetElement(lcf::Data::terrains, GetTerrainTag(x, y));
 		if (!terrain) {
-			Output::Warning("PrepareEncounter: Invalid terrain at ({}, {})", x, y);
+			Output::Warning("PrepareEncounter: Địa hình không hợp lệ ở vị trí ({}, {})", x, y);
 		} else {
 			if (terrain->special_flags.back_party && Rand::PercentChance(terrain->special_back_party)) {
 				args.condition = lcf::rpg::System::BattleCondition_initiative;
@@ -1473,7 +1473,7 @@ void Game_Map::SetChipset(int id) {
 	map_info.chipset_id = id;
 
 	if (!ReloadChipset()) {
-		Output::Warning("SetChipset: Invalid chipset ID {}", map_info.chipset_id);
+		Output::Warning("SetChipset: ID chipset {} không hợp lệ", map_info.chipset_id);
 	} else {
 		passages_down = chipset->passable_data_lower;
 		passages_up = chipset->passable_data_upper;

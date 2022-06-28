@@ -1,103 +1,103 @@
 # EasyRPG Player
 
-EasyRPG Player is a game interpreter to play RPG Maker 2000, 2003 and EasyRPG
-games. It uses the LCF parser library (liblcf) to read RPG Maker game data.
+EasyRPG Player là một trình biên dịch trò chơi để chơi những trò chơi RPG Maker 2000, 2003 và các trò chơi EasyRPG. Nó sử dụng thư viện phân tích LCF (liblcf) để đọc dữ liệu trò chơi RPG Maker.
 
-EasyRPGPlayer-Vietnamese is a fork that adds Vietnamese language font and making
-the player Vietnamese-compatible. This fork is heavily inspired from
-[toaranotdev's fork](https://github.com/toaranotdev/easyrpg-player-vietnamese), so you should check that fork too.
+EasyRPGPlayer-Vietnamese là một bản chỉnh sửa của phần mềm này và nó được thêm khả năng hỗ trợ phông chữ tiếng Việt và làm cho trò chơi có thể sử dụng ngôn ngữ tiếng Việt.<br>
+Bản chỉnh sửa này được lấy cảm hứng rất lớn từ [bản của toaranotdev](https://github.com/toaranotdev/easyrpg-player-vietnamese), nên bạn cũng có thể ghé qua bản của em ấy.
 
-EasyRPG Player is part of the EasyRPG Project. More information is
-available at the project website: https://easyrpg.org/
+EasyRPG Player là một phần của dự án EasyRPG. Thông tin thêm bằng tiếng Anh có thể tìm thấy ở trang web của dự án: [https://easyrpg.org](https://easyrpg.org) 
 
-## How to translate a RPG2000/2003 game into Vietnamese?
+## Làm thế nào để dịch môt trò chơi RPG2000/2003 sang tiếng Việt?
 
-Use [lcftrans](https://ci.easyrpg.org/view/Tools/) to extract text messages in
-the game and just translate them. This fork of Player supports Unicode text
-so feel free to type using Unicode.
+Dùng công cụ [lcftrans](https://ci.easyrpg.org/view/Tools/) (cũng từ dự án EasyRPG) để xuất các dòng chữ và đoạn hội thoại của trò chơi và bạn chỉ cần dịch nó là xong. Bản này hỗ trợ bảng mã Unicode nên bạn cũng có thể sử dụng Unicode nếu thích.
 
-Also, the game itself should use Shinonome as the font to make the player
-capable to display the Vietnamese-modded font.
+Và, trò chơi bạn cần dịch cần sử dụng Shinonome làm phông chữ để Player có thể hiển thị phông chữ tiếng Việt đã qua chỉnh sửa.
 
-## Documentation
+## Tài liệu hướng dẫn
 
-Documentation is available at the documentation wiki: https://wiki.easyrpg.org
+Tài liệu hướng dẫn bằng tiếng Anh có thể được tìm thấy ở trang wiki của dự án: https://wiki.easyrpg.org
 
 
-## Requirements
+## Yêu cầu
 
-### minimal / required
+### Quan trọng
 
-- [liblcf] for RPG Maker data reading.
-- SDL2 for screen backend support.
-- Pixman for low level pixel manipulation.
-- libpng for PNG image support.
-- zlib for XYZ image support.
-- fmtlib for interal logging.
+- [liblcf] để đọc dữ liệu RPG Maker.
+- SDL2 để hỗ trợ màn hình phụ.
+- Pixman để quản lý hình ảnh pixel cấp thấp.
+- libpng để hỗ trợ hình ảnh có định dạng PNG.
+- zlib để hỗ trợ hình ảnh có định dạng XYZ.
+- fmtlib để ghi nhật ký phần mềm.
 
-### extended / recommended
+### Khuyên dùng
 
-- FreeType2 for external font support (+ HarfBuzz for Unicode text shaping)
-- mpg123 for better MP3 audio support
-- WildMIDI for better MIDI audio support
-- Libvorbis / Tremor for Ogg Vorbis audio support
-- opusfile for Opus audio support
-- libsndfile for better WAVE audio support
-- libxmp for better tracker music support
-- SpeexDSP for proper audio resampling
+- FreeType2 để hỗ trợ các phông chữ bên ngoài (+ HarfBuzz để hỗ trợ các phông chữ Unicode)
+- mpg123 để hỗ trợ các tệp tin MP3 tốt hơn
+- WildMIDI để hỗ trợ các tệp tin MIDI tốt hơn
+- Libvorbis / Tremor để hỗ trợ các tệp tin OGG
+- opusfile để hỗ trợ các tệp tin OPUS
+- libsndfile để hỗ trợ các tệp tin WAV tốt hơn.
+- libxmp để hỗ trợ âm nhạc theo dõi tốt hơn
+- SpeexDSP để lấy lại mẫu âm thanh thích hợp
 
-SDL 1.2 is still supported, but deprecated.
+SDL 1.2 cũng được hỗ trợ nhưng không còn được sử dụng rộng rãi nữa.
 
 
-## Daily builds
+## Các bản dựng thường xuyên
 
-Up to date binaries for assorted platforms are available at our continuous
-integration service:
+Các bản dựng tiếng Anh thường xuyên được xây dựng mỗi ngày bởi chính EasyRPG được tải lên ở trên website này.<br>
+Các bản dựng này luôn dựa theo mã nguồn mới nhất trên GitHub chính thức của EasyRPG, nên một số lỗi vặt có thể xảy ra.
 
 https://ci.easyrpg.org/view/Player/
 
 
 ## Source code
 
-EasyRPG Player development is hosted by GitHub, project files are available
-in this git repository:
+Mã nguồn gốc (bản tiếng Anh) của EasyRPG Player được tải lên GitHub và bạn có thể xem nó tại đây:
 
 https://github.com/EasyRPG/Player
 
-Released versions are also available at our Download Archive:
+Các phiên bản đã được ra mắt cũng có sẵn ở trang web này:
 
 https://easyrpg.org/downloads/player/
 
 
-## Building
+## Xây dựng từ mã nguồn
 
-See [BUILDING document].
-
-
-## Running EasyRPG Player
-
-Run the `easyrpg-player` executable from a RPG Maker 2000 or 2003 game
-project folder (same place as `RPG_RT.exe`).
+Bạn có thể xem [tài liệu dành cho xây dựng](https://github.com/NozakiYuu/EasyRPGPlayer-Vietnamese/blob/master/docs/BUILDING.md).
 
 
-## Bug reporting
+## Chạy EasyRPG Player
 
-Available options:
+Chạy tệp tin `easyrpg-player` từ thư mục của trò chơi RPG Maker 2000/2003 mà bạn cần chơi (cùng thư mục với tệp tin `RPG_RT.exe`).
 
-* File an issue at https://github.com/EasyRPG/Player/issues
-* Open a thread at https://community.easyrpg.org/
-* Chat with us via IRC: [#easyrpg at irc.libera.chat]
+Nếu bạn chạy trên hệ điều hành Android, cần theo hướng dẫn có sẵn đã ghi ở trong phần mềm đó.
 
 
-## License
+## Báo lỗi
 
-EasyRPG Player is free software available under the GPLv3 license. See the file
-[COPYING] for license conditions. For Author information see [AUTHORS document].
+Bạn có thể báo lỗi cho đội ngũ EasyRPG nếu như lỗi xuất phát từ Player gốc, còn nếu nó xuất phát từ Player bản tiếng Việt thì **hãy báo cáo cho nhà phát triển của bản tiếng Việt (Nozaki Yuu), không báo cáo cho bên EasyRPG**!
+
+Nếu bạn báo lỗi với EasyRPG, vui lòng báo lỗi bằng tiếng Anh, không báo lỗi bằng tiếng Việt.
+
+### Các tuỳ chọn có sẵn của đội ngũ EasyRPG:
+
+* Báo lỗi tại trang web https://github.com/EasyRPG/Player/issues
+* Mở một chủ đề tại diễn đàn https://community.easyrpg.org/
+* Trò chuyện với đội ngũ EasyRPG: [#easyrpg at irc.libera.chat]
+
+### Các tuỳ chọn có sẵn của Nozaki Yuu:
+
+Trò chuyện qua Facebook: https://www.facebook.com/Yonaka12 hoặc qua Discord: Nozaki Yuu#0011.
+
+## Giấy phép
+
+EasyRPG Player là một phần mềm miễn phí có sẵn dưới giấy phép GPLv3. Đọc tệp tin [COPYING] để xem điều kiện của giấy phép. Để xem thông tin tác giả hãy truy cập vào [tài liệu tác giả](https://github.com/NozakiYuu/EasyRPGPlayer-Vietnamese/blob/master/docs/AUTHORS.md).
 
 
-### 3rd party software
+### Phần mềm bên thứ ba (3rd party software)
 
-EasyRPG Player makes use of the following 3rd party software:
+EasyRPG Player sử dụng những phần mềm bên thứ ba sau:
 
 * [FMMidi] YM2608 FM synthesizer emulator - Copyright (c) 2003-2006 yuno
   (Yoshio Uno), provided under the (3-clause) BSD license
@@ -109,7 +109,7 @@ EasyRPG Player makes use of the following 3rd party software:
   Copyright (c) 2006-2012 Toni Ronkko, provided under the MIT license
 * [rang] terminal color library - by Abhinav Gauniyal, provided under Unlicense
 
-### 3rd party resources
+### Tài nguyên bên thứ ba (3rd party resources)
 
 * [Baekmuk] font family (Korean) - Copyright (c) 1986-2002 Kim Jeong-Hwan,
   provided under the Baekmuk License
@@ -125,10 +125,7 @@ EasyRPG Player makes use of the following 3rd party software:
   provided under the MIT license (only used by the Emscripten web shell)
 
 [liblcf]: https://github.com/EasyRPG/liblcf
-[BUILDING document]: docs/BUILDING.md
 [#easyrpg at irc.libera.chat]: https://kiwiirc.com/nextclient/#ircs://irc.libera.chat/#easyrpg?nick=rpgguest??
-[COPYING]: COPYING
-[AUTHORS document]: docs/AUTHORS.md
 [FMMidi]: http://unhaut.epizy.com/fmmidi
 [dr_wav]: https://github.com/mackron/dr_libs
 [PicoJSON]: https://github.com/kazuho/picojson

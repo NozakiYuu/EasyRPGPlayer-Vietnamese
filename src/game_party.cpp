@@ -224,7 +224,7 @@ void Game_Party::ConsumeItemUse(int item_id) {
 	const lcf::rpg::Item* item = lcf::ReaderUtil::GetElement(lcf::Data::items, item_id);
 
 	if (!item) {
-		Output::Warning("ConsumeItemUse: Invalid item ID {}.", item_id);
+		Output::Warning("ConsumeItemUse: ID vật phẩm {} không hợp lệ.", item_id);
 		return;
 	}
 
@@ -273,7 +273,7 @@ bool Game_Party::IsItemUsable(int item_id, const Game_Actor* target) const {
 
 	const lcf::rpg::Item* item = lcf::ReaderUtil::GetElement(lcf::Data::items, item_id);
 	if (!item) {
-		Output::Warning("IsItemUsable: Invalid item ID {}", item_id);
+		Output::Warning("IsItemUsable: ID vật phẩm {} không hợp lệ.", item_id);
 		return false;
 	}
 
@@ -325,7 +325,7 @@ bool Game_Party::UseItem(int item_id, Game_Actor* target) {
 
 	auto* item = lcf::ReaderUtil::GetElement(lcf::Data::items, item_id);
 	if (!item) {
-		Output::Warning("UseItem: Can't use item with invalid ID {}", item_id);
+		Output::Warning("UseItem: Không thể sử dụng vật phẩm với ID không hợp lệ: {}", item_id);
 		return false;
 	}
 
@@ -343,7 +343,7 @@ bool Game_Party::UseItem(int item_id, Game_Actor* target) {
 	if (do_skill) {
 		skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, item->skill_id);
 		if (skill == nullptr) {
-			Output::Warning("UseItem: Can't use item {} skill with invalid ID {}", item->ID, item->skill_id);
+			Output::Warning("UseItem: Không thể sử dụng vật phẩm kỹ năng {} với ID {} không hợp lệ", item->ID, item->skill_id);
 			return false;
 		}
 	}
@@ -388,7 +388,7 @@ bool Game_Party::IsSkillUsable(int skill_id, const Game_Actor* target, bool from
 
 	const lcf::rpg::Skill* skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, skill_id);
 	if (!skill) {
-		Output::Warning("IsSkillUsable: Can't use skill with invalid ID {}", skill_id);
+		Output::Warning("IsSkillUsable: Không thể sử dụng kĩ năng với ID {} không hợp lệ", skill_id);
 		return false;
 	}
 
@@ -690,14 +690,14 @@ void Game_Party::RemoveInvalidData() {
 		if (Main_Data::game_actors->ActorExists(*it)) {
 			data.party.push_back(*it);
 		} else {
-			Output::Warning("Removing invalid party member {}", *it);
+			Output::Warning("Đang xoá thành viên {} không hợp lệ", *it);
 		}
 	}
 
 	// Remove non existing items
 	for (it = data.item_ids.begin(); it != data.item_ids.end(); ) {
 		if (!lcf::ReaderUtil::GetElement(lcf::Data::items, *it)) {
-			Output::Warning("Removing invalid item {} from party", *it);
+			Output::Warning("Đang xoá vật phẩm {} không hợp lệ ra khỏi đội", *it);
 			it = data.item_ids.erase(it);
 		} else {
 			++it;

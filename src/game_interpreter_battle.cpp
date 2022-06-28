@@ -205,7 +205,7 @@ bool Game_Interpreter_Battle::CommandCallCommonEvent(lcf::rpg::EventCommand cons
 
 	Game_CommonEvent* common_event = lcf::ReaderUtil::GetElement(Game_Map::GetCommonEvents(), evt_id);
 	if (!common_event) {
-		Output::Warning("CallCommonEvent: Can't call invalid common event {}", evt_id);
+		Output::Warning("CallCommonEvent: Không thể gọi sự kiện chung {} không hợp lệ", evt_id);
 		return true;
 	}
 
@@ -266,7 +266,7 @@ bool Game_Interpreter_Battle::CommandEnableCombo(lcf::rpg::EventCommand const& c
 	Game_Actor* actor = Main_Data::game_actors->GetActor(actor_id);
 
 	if (!actor) {
-		Output::Warning("EnableCombo: Invalid actor ID {}", actor_id);
+		Output::Warning("EnableCombo: ID nhân vật {} không hợp lệ", actor_id);
 		return true;
 	}
 
@@ -476,7 +476,7 @@ bool Game_Interpreter_Battle::CommandConditionalBranchBattle(lcf::rpg::EventComm
 			Game_Actor* actor = Main_Data::game_actors->GetActor(com.parameters[1]);
 
 			if (!actor) {
-				Output::Warning("ConditionalBranchBattle: Invalid actor ID {}", com.parameters[1]);
+				Output::Warning("ConditionalBranchBattle: ID nhân vật {} không hợp lệ", com.parameters[1]);
 				// Use Else Branch
 				SetSubcommandIndex(com.indent, 1);
 				SkipToNextConditional({Cmd::ElseBranch_B, Cmd::EndBranch_B}, com.indent);
@@ -531,7 +531,7 @@ bool Game_Interpreter_Battle::CommandManiacControlBattle(lcf::rpg::EventCommand 
 		return true;
 	}
 
-	Output::Warning("Maniac Patch: Command ControlBattle not supported");
+	Output::Warning("Maniac Patch: Lệnh ControlBattle không được hỗ trợ");
 	return true;
 }
 
@@ -540,7 +540,7 @@ bool Game_Interpreter_Battle::CommandManiacControlAtbGauge(lcf::rpg::EventComman
 		return true;
 	}
 
-	Output::Warning("Maniac Patch: Command ControlAtbGauge not supported");
+	Output::Warning("Maniac Patch: Lệnh ControlAtbGauge không được hỗ trợ");
 	return true;
 }
 
@@ -549,7 +549,7 @@ bool Game_Interpreter_Battle::CommandManiacChangeBattleCommandEx(lcf::rpg::Event
 		return true;
 	}
 
-	Output::Warning("Maniac Patch: Command ChangeBattleCommandEx not supported");
+	Output::Warning("Maniac Patch: Lệnh ChangeBattleCommandEx không được hỗ trợ");
 	return true;
 }
 
@@ -558,7 +558,7 @@ bool Game_Interpreter_Battle::CommandManiacGetBattleInfo(lcf::rpg::EventCommand 
 		return true;
 	}
 
-	Output::Warning("Maniac Patch: Command GetBattleInfo not supported");
+	Output::Warning("Maniac Patch: Lệnh GetBattleInfo không được hỗ trợ");
 	return true;
 }
 

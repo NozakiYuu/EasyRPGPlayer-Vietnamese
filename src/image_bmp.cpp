@@ -89,7 +89,7 @@ bool ImageBMP::ReadBMP(const uint8_t* data, unsigned len, bool transparent,
 	pixels = nullptr;
 
 	if (len < 64) {
-		Output::Warning("Not a valid BMP file.");
+		Output::Warning("Không phải tệp tin BMP hợp lệ.");
 		return false;
 	}
 	auto* ptr = data;
@@ -107,17 +107,17 @@ bool ImageBMP::ReadBMP(const uint8_t* data, unsigned len, bool transparent,
 		hdr.h = -hdr.h;
 
 	if (hdr.planes != 1) {
-		Output::Warning("BMP planes is not 1.");
+		Output::Warning("Plane của BMP không phải là 1.");
 		return false;
 	}
 
 	if (hdr.depth != 8 && hdr.depth != 4) {
-		Output::Warning("BMP image depth unsupported: {} bit.", hdr.depth);
+		Output::Warning("Độ sâu của BMP không được hỗ trợ: {} bit.", hdr.depth);
 		return false;
 	}
 
 	if (hdr.compression) {
-		Output::Warning("BMP image is compressed.");
+		Output::Warning("Hình ảnh BMP này đã được nén.");
 		return false;
 	}
 
@@ -144,7 +144,7 @@ bool ImageBMP::ReadBMP(const uint8_t* data, unsigned len, bool transparent,
 
 	pixels = malloc(hdr.w * hdr.h * 4);
 	if (!pixels) {
-		Output::Warning("Error allocating BMP pixel buffer.");
+		Output::Warning("Lỗi phân bổ bộ đệm của BMP.");
 		return false;
 	}
 

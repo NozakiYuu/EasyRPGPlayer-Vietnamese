@@ -107,7 +107,7 @@ namespace {
 static void initEgl() {
 	eglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 	if (!eglDisplay) {
-		Output::Error("Could not connect to display! error: {}", eglGetError());
+		Output::Error("Không thể kết nối tới màn hình!! thông tin lỗi: {}", eglGetError());
 		return;
 	}
 
@@ -116,7 +116,7 @@ static void initEgl() {
 	if (eglBindAPI(EGL_OPENGL_API) == EGL_FALSE) {
 		eglTerminate(eglDisplay);
 		eglDisplay = nullptr;
-		Output::Error("Could not set OpenGL API! error: {}", eglGetError());
+		Output::Error("Không thể cài đặt API của OpenGL! thông tin lỗi: {}", eglGetError());
 		return;
 	}
 
@@ -134,7 +134,7 @@ static void initEgl() {
 	if (numConfigs == 0) {
 		eglTerminate(eglDisplay);
 		eglDisplay = nullptr;
-		Output::Error("No EGL config found! error: {}", eglGetError());
+		Output::Error("Không tìm thấy cài đặt EGL nào! thông tin lỗi: {}", eglGetError());
 		return;
 	}
 
@@ -143,7 +143,7 @@ static void initEgl() {
 	if (!eglSurface) {
 		eglTerminate(eglDisplay);
 		eglDisplay = nullptr;
-		Output::Error("EGL Surface creation failed! error: {}", eglGetError());
+		Output::Error("Không thể tạo bề mặt EGL! thông tin lỗi: {}", eglGetError());
 		return;
 	}
 
@@ -160,7 +160,7 @@ static void initEgl() {
 		eglSurface = nullptr;
 		eglTerminate(eglDisplay);
 		eglDisplay = nullptr;
-		Output::Error("EGL Context creation failed! error: {}", eglGetError());
+		Output::Error("Không thể tạo định nghĩa EGL! thông tin lỗi: {}", eglGetError());
 		return;
 	}
 
@@ -189,7 +189,7 @@ static GLuint createAndCompileShader(GLenum type, const char* source) {
 
 	GLuint handle = glCreateShader(type);
 	if (!handle) {
-		Output::Error("{}: cannot create shader", type);
+		Output::Error("{}: Không thể tạo bóng đổ", type);
 		return 0;
 	}
 	glShaderSource(handle, 1, &source, nullptr);
@@ -329,7 +329,7 @@ NxUi::NxUi(int width, int height, const Game_ConfigVideo& cfg) : BaseUi(cfg) {
 	if (success == GL_FALSE) {
 		char buf[512];
 		glGetProgramInfoLog(shaderProgramm, sizeof(buf), nullptr, buf);
-		Output::Warning("Shader link error: {}", buf);
+		Output::Warning("Shader link thông tin lỗi: {}", buf);
 	}
 	glDeleteShader(vsh);
 	glDeleteShader(fsh);

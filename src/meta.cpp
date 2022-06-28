@@ -76,7 +76,7 @@ Meta::Meta(StringView meta_file) {
 		if (version == "1") {
 			IdentifyCanonName(TREEMAP_NAME, DATABASE_NAME);
 		} else {
-			Output::Warning("Metadata error in {}, format property {}:{} is missing or invalid: '{}'", meta_file, MTINI_EASY_RPG_SECTION, MTINI_FILE_FORMAT_VERSION, version);
+			Output::Warning("Lỗi dũ liệu thuộc tính ở {}, định dạng thuộc tính {}:{} bị thiếu hoặc không hợp lệ: '{}'", meta_file, MTINI_EASY_RPG_SECTION, MTINI_FILE_FORMAT_VERSION, version);
 			ini = nullptr;
 		}
 	}

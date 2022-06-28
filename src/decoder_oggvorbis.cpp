@@ -47,7 +47,7 @@ static long vio_tell_func(void* userdata) {
 static ov_callbacks vio = {
 	vio_read_func,
 	vio_seek_func,
-	nullptr, // close not supported by istream interface
+	nullptr, // close không được hỗ trợ by istream interface
 	vio_tell_func
 };
 

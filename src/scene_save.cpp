@@ -80,7 +80,7 @@ bool Scene_Save::Save(const FilesystemView& fs, int slot_id, bool prepare_save) 
 	auto save_stream = FileFinder::Save().OpenOutputStream(filename);
 
 	if (!save_stream) {
-		Output::Warning("Failed saving to {}", filename);
+		Output::Warning("Không thể lưu trò chơi vào tệp tin {}", filename);
 		return false;
 	}
 

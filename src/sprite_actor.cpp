@@ -91,13 +91,13 @@ void Sprite_Actor::Update() {
 
 			const lcf::rpg::BattlerAnimation* anim = lcf::ReaderUtil::GetElement(lcf::Data::battleranimations, battler->GetBattleAnimationId());
 			if (!anim) {
-				Output::Warning("Invalid battler animation ID {}", battler->GetBattleAnimationId());
+				Output::Warning("ID hiệu ứng nhân vật không hợp lệ {}", battler->GetBattleAnimationId());
 				return;
 			}
 
 			const auto* ext = lcf::ReaderUtil::GetElement(anim->poses, anim_state);
 			if (!ext) {
-				Output::Warning("Animation {}: Invalid battler anim-extension state {}", anim->ID, anim_state);
+				Output::Warning("Hiệu ứng {}: Trạng thái tiện ích mở rộng hoạt ảnh nhân vật {} không hợp lệ", anim->ID, anim_state);
 				return;
 			}
 
@@ -150,13 +150,13 @@ void Sprite_Actor::SetAnimationState(int state, LoopState loop, int animation_id
 	if (battler->GetBattleAnimationId() > 0) {
 		const lcf::rpg::BattlerAnimation* anim = lcf::ReaderUtil::GetElement(lcf::Data::battleranimations, battler->GetBattleAnimationId());
 		if (!anim) {
-			Output::Warning("Invalid battler animation ID {}", battler->GetBattleAnimationId());
+			Output::Warning("ID hiệu ứng nhân vật {} không hợp lệ", battler->GetBattleAnimationId());
 			return;
 		}
 
 		const auto* ext = lcf::ReaderUtil::GetElement(anim->poses, anim_state);
 		if (!ext) {
-			Output::Warning("Animation {}: Invalid battler anim-extension state {}", anim->ID, anim_state);
+			Output::Warning("Hiệu ứng {}: Trạng thái tiện ích mở rộng hoạt ảnh nhân vật {} không hợp lệ", anim->ID, anim_state);
 			return;
 		}
 
@@ -170,7 +170,7 @@ void Sprite_Actor::SetAnimationState(int state, LoopState loop, int animation_id
 			}
 			lcf::rpg::Animation* battle_anim = lcf::ReaderUtil::GetElement(lcf::Data::animations, animation_id);
 			if (!battle_anim) {
-				Output::Warning("Invalid battle animation ID {}", animation_id);
+				Output::Warning("ID hiệu ứng chiến đấu {} không hợp lệ", animation_id);
 				animation.reset();
 			} else {
 				animation.reset(new BattleAnimationBattler(*battle_anim, { battler }));

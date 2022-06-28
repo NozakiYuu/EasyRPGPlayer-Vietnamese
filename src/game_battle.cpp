@@ -152,7 +152,7 @@ Spriteset_Battle& Game_Battle::GetSpriteset() {
 int Game_Battle::ShowBattleAnimation(int animation_id, std::vector<Game_Battler*> targets, bool only_sound, int cutoff, bool invert) {
 	const lcf::rpg::Animation* anim = lcf::ReaderUtil::GetElement(lcf::Data::animations, animation_id);
 	if (!anim) {
-		Output::Warning("ShowBattleAnimation Many: Invalid animation ID {}", animation_id);
+		Output::Warning("ShowBattleAnimation Many: ID hiệu ứng {} không hợp lệ", animation_id);
 		return 0;
 	}
 

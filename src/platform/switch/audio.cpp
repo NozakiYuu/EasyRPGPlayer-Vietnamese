@@ -90,7 +90,7 @@ NxAudio::NxAudio() :
 	SetFormat(samplerate, AudioDecoder::Format::S16, 2);
 
 	if (R_FAILED(threadStart(&audio_thread))) {
-		Output::Error("Failed to init audio thread.");
+		Output::Error("Không thể khởi động hệ thống âm thanh.");
 		return;
 	}
 }

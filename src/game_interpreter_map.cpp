@@ -618,7 +618,7 @@ bool Game_Interpreter_Map::CommandPlayMovie(lcf::rpg::EventCommand const& com) {
 	int res_x = com.parameters[3];
 	int res_y = com.parameters[4];
 
-	Output::Warning("Couldn't play movie: {}. Movie playback is not implemented (yet).", filename);
+	Output::Warning("Không thể phát tệp tin video: {}. Tính năng phát video vẫn chưa được xuất hiện.", filename);
 
 	Main_Data::game_screen->PlayMovie(filename, pos_x, pos_y, res_x, res_y);
 
@@ -674,7 +674,7 @@ bool Game_Interpreter_Map::CommandOpenVideoOptions(lcf::rpg::EventCommand const&
 		return false;
 	}
 
-	Output::Warning("OpenVideoOptions: Command not supported");
+	Output::Warning("OpenVideoOptions: Lệnh không được hỗ trợ");
 	return true;
 }
 

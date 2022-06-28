@@ -50,7 +50,7 @@ void Game_Character::SanitizeMoveRoute(StringView name, const lcf::rpg::MoveRout
 	const auto n = static_cast<int32_t>(mr.move_commands.size());
 	if (idx < 0 || idx > n) {
 		idx = n;
-		Output::Warning("{} {}: Save Data invalid {}={}. Fixing ...", TypeToStr(_type), name, chunk_name, idx);
+		Output::Warning("{} {}: Dữ liệu lưu trò chơi không hợp lệ: {}={}. Đang sửa đổi...", TypeToStr(_type), name, chunk_name, idx);
 	}
 }
 

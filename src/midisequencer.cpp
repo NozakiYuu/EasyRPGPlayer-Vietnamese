@@ -44,7 +44,7 @@ namespace midisequencer{
             --*track_length;
             d = fgetc(fp);
             if(d == EOF){
-                Output::Warning("Midi sequencer: {}", errtext);
+                Output::Warning("Trình phối MIDI: {}", errtext);
             }
             ret <<= 7;
             ret |= (d & 0x7F);
@@ -98,7 +98,7 @@ namespace midisequencer{
             load_smf(fp, fgetc);
             result = true;
         }else{
-            Output::Warning("Midi sequencer: unsupported format");
+            Output::Warning("Trình phối MIDI: Định dạng không được hỗ trợ");
         }
         if(!result){
             clear();
@@ -300,11 +300,11 @@ namespace midisequencer{
         || fgetc(fp) != 0
         || fgetc(fp) != 6
         || fgetc(fp) != 0){
-            Output::Warning("Midi sequencer: invalid file header");
+            Output::Warning("Trình phối MIDI: Phần đầu của tệp tin không hợp lệ");
         }
         int format = fgetc(fp);
         if(format != 0 && format != 1){
-            Output::Warning("Midi sequencer: unsupported format type");
+            Output::Warning("Trình phối MIDI: Định dạng không được hỗ trợ type");
         }
         int t0 = fgetc(fp);
         int t1 = fgetc(fp);
@@ -314,7 +314,7 @@ namespace midisequencer{
         division = (d0 << 8) | d1;
         for(unsigned track = 0; track < num_tracks; ++track){
             if(fgetc(fp) != 0x4D || fgetc(fp) != 0x54 || fgetc(fp) != 0x72 || fgetc(fp) != 0x6B){
-                Output::Warning("Midi sequencer: invalid track header");
+                Output::Warning("Trình phối MIDI: Phần đầu của bài nhạc không hợp lệ");
             }
             int l0 = fgetc(fp);
             int l1 = fgetc(fp);
@@ -332,7 +332,7 @@ namespace midisequencer{
             msg.track = track;
             for(;;){
                 if(track_length < 4){
-                    Output::Warning("Midi sequencer: unexpected EOF (track_length)");
+                    Output::Warning("Trình phối MIDI: Phát hiện EOF không mong muốn (track_length)");
                 }
                 uint_least32_t delta = read_variable_value(fp, fgetc, &track_length, "unexpected EOF (deltatime)");
                 time += delta;
@@ -355,7 +355,7 @@ namespace midisequencer{
                             s[i] = static_cast<char>(fgetc(fp));
                         }
                         if(s[n] != '\xF7'){
-                            Output::Debug("Midi sequencer: missing sysex terminator");
+                            Output::Debug("Trình phối MIDI: missing sysex terminator");
                             s += static_cast<char>(0xF7);
                         }
                         track_length -= n;
@@ -404,7 +404,7 @@ namespace midisequencer{
                             goto next_track;
                         case 0x54:
                             if(n != 5){
-                                Output::Warning("Midi sequencer: invalid SMTPE offset metaevent length");
+                                Output::Warning("Trình phối MIDI: độ dài offset metaevent của SMTPE không hợp lệ");
                             }
                             if(msg.time == 0us && (division & 0x8000)){
                                 int hour = static_cast<unsigned char>(s[1]);
@@ -455,7 +455,7 @@ namespace midisequencer{
                         --track_length;
                         break;
                     default:
-                        Output::Warning("Midi sequencer: invalid midi message");
+                        Output::Warning("Trình phối MIDI: Dữ liệu MIDI không hợp lệ");
                     }
                     messages.push_back(msg);
                     break;
@@ -464,7 +464,7 @@ namespace midisequencer{
         next_track:
             while(track_length > 0){
                 if(fgetc(fp) == EOF){
-                    Output::Warning("Midi sequencer: unexpected EOF (tailer padding)");
+                    Output::Warning("Trình phối MIDI: Phát hiện EOF không mong muốn (tailer padding)");
                 }
                 --track_length;
             }

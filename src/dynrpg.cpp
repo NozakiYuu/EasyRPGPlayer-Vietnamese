@@ -63,7 +63,7 @@ std::string DynRpg::ParseVarArg(StringView func_name, dyn_arg_list args, int ind
 	parse_okay = true;
 	if (index >= static_cast<int>(args.size())) {
 		parse_okay = false;
-		Output::Warning("{}: Vararg {} out of range", func_name, index);
+		Output::Warning("{}: Đối số {} nằm ngoài tầm kiểm soát", func_name, index);
 		return "";
 	}
 
@@ -145,7 +145,7 @@ static std::string ParseToken(const std::string& token, const std::string& funct
 			for (std::string::reverse_iterator it = tmp.rbegin(); it != tmp.rend(); ++it) {
 				if (*it == 'N') {
 					if (!Main_Data::game_actors->ActorExists(number)) {
-						Output::Warning("{}: Invalid actor id {} in {}", function_name, number, token);
+						Output::Warning("{}: ID nhân vật {} không hợp lệ ở hàm {}", function_name, number, token);
 						return "";
 					}
 
@@ -238,7 +238,7 @@ std::string DynRpg::ParseCommand(const std::string& command, std::vector<std::st
 					function_name = Utils::LowerCase(token.str());
 					if (function_name.empty()) {
 						// empty function name
-						Output::Warning("Empty DynRPG function name");
+						Output::Warning("Không có tên hàm DynRPG");
 						return "";
 					}
 					break;
@@ -269,7 +269,7 @@ std::string DynRpg::ParseCommand(const std::string& command, std::vector<std::st
 					function_name = Utils::LowerCase(token.str());
 					if (function_name.empty()) {
 						// empty function name
-						Output::Warning("Empty DynRPG function name");
+						Output::Warning("Không có tên hàm DynRPG");
 						return "";
 					}
 					token.str("");
@@ -294,7 +294,7 @@ std::string DynRpg::ParseCommand(const std::string& command, std::vector<std::st
 					function_name = Utils::LowerCase(token.str());
 					if (function_name.empty()) {
 						// empty function name
-						Output::Warning("Empty DynRPG function name");
+						Output::Warning("Không có tên hàm DynRPG");
 						return "";
 					}
 					token.str("");
@@ -327,7 +327,7 @@ std::string DynRpg::ParseCommand(const std::string& command, std::vector<std::st
 					token << chr;
 					break;
 				case ParseMode_WaitForComma:
-					Output::Warning("{}: Expected \",\", got token", function_name);
+					Output::Warning("{}: Đang chờ kí tự \",\", nhưng lại nhận được token", function_name);
 					return "";
 				case ParseMode_WaitForArg:
 					if (chr == '"') {
@@ -393,7 +393,7 @@ bool DynRpg::Invoke(const std::string& func, dyn_arg_list args) {
 
 	if (!DynRpg::HasFunction(func)) {
 		// Not a supported function
-		Output::Warning("Unsupported DynRPG function: {}", func);
+		Output::Warning("Hàm DynRPG không được hỗ trợ: {}", func);
 		return true;
 	}
 
@@ -428,7 +428,7 @@ void DynRpg::Load(int slot) {
 	auto in = FileFinder::Game().OpenInputStream(filename);
 
 	if (!in) {
-		Output::Warning("Couldn't read DynRPG save: {}", filename);
+		Output::Warning("Không thể đọc tệp tin lưu trò chơi DynRPG: {}", filename);
 	}
 
 	std::vector<uint8_t> in_buffer;
@@ -437,7 +437,7 @@ void DynRpg::Load(int slot) {
 	in.read((char*)in_buffer.data(), 8);
 
 	if (strncmp((char*)in_buffer.data(), "DYNSAVE1", 8) != 0) {
-		Output::Warning("Corrupted DynRPG save: {}", filename);
+		Output::Warning("Tệp tin lưu trò chơi DynRPG đã bị hỏng: {}", filename);
 		return;
 	}
 
@@ -497,7 +497,7 @@ void DynRpg::Save(int slot) {
 	auto out = FileFinder::Save().OpenOutputStream(filename);
 
 	if (!out) {
-		Output::Warning("Couldn't write DynRPG save: {}", filename);
+		Output::Warning("Không thể viết tệp tin lưu trò chơi DynRPG: {}", filename);
 		return;
 	}
 

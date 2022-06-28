@@ -117,10 +117,10 @@ bool Game_Ineluki::Execute(StringView ini_file) {
 			} else if (StringView(cmd.arg).starts_with("SaveCount.dat")) {
 				// no-op, detected through saves.script access
 			} else {
-				Output::Warning("Ineluki ExecProgram {}: Not supported", cmd.arg);
+				Output::Warning("Ineluki ExecProgram {}: không được hỗ trợ", cmd.arg);
 			}
 		} else if (cmd.name == "mcicommand") {
-			Output::Warning("Ineluki MciProgram {}: Not supported", cmd.arg);
+			Output::Warning("Ineluki MciProgram {}: không được hỗ trợ", cmd.arg);
 		} else if (cmd.name == "miditickfunction") {
 			std::string arg = Utils::LowerCase(cmd.arg);
 			if (arg == "original") {
@@ -138,11 +138,11 @@ bool Game_Ineluki::Execute(StringView ini_file) {
 
 #if !defined(SUPPORT_KEYBOARD)
 			if (key_support) {
-				Output::Warning("Ineluki: Keyboard input is not supported on this platform");
+				Output::Warning("Ineluki: Hệ điều hành này không hỗ trợ bàn phím");
 			}
 #else
 			if (prev_key_support != key_support) {
-				Output::Debug("Ineluki: Key support is now {}", key_support ? "Enabled" : "Disabled");
+				Output::Debug("Ineluki: Hỗ trợ phím đã được {}", key_support ? "bật" : "tắt");
 			}
 
 			mask_kb(key_support);
@@ -170,11 +170,11 @@ bool Game_Ineluki::Execute(StringView ini_file) {
 			// TODO: automatic (append mouse pos every 500ms) not implemented
 #if !defined(USE_MOUSE) || !defined(SUPPORT_MOUSE)
 			if (mouse_support) {
-				Output::Warning("Ineluki: Mouse input is not supported on this platform");
+				Output::Warning("Ineluki: Hệ điều hành này không hỗ trợ chuột");
 			}
 #else
 			if (prev_mouse_support != mouse_support) {
-				Output::Debug("Ineluki: Mouse support is now {}", mouse_support ? "Enabled" : "Disabled");
+				Output::Debug("Ineluki: Hỗ trợ chuột đã được {}", mouse_support ? "bật" : "tắt");
 			}
 
 			mask_mouse(mouse_support);

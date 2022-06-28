@@ -96,7 +96,7 @@ void Scene_GameBrowser::CreateWindows() {
 	}
 
 	help_window = std::make_unique<Window_Help>(0, 0, SCREEN_TARGET_WIDTH, 32);
-	help_window->SetText("EasyRPG Player - RPG Maker 2000/2003 interpreter");
+	help_window->SetText("EasyRPGPlayer-Vietnamese - Vietnamese-modded RPG Maker 2000/2003 interpreter");
 
 	load_window = std::make_unique<Window_Help>(SCREEN_TARGET_WIDTH / 4, SCREEN_TARGET_HEIGHT / 2 - 16, SCREEN_TARGET_WIDTH / 2, 32);
 	load_window->SetText("Loading...");
@@ -180,7 +180,7 @@ void Scene_GameBrowser::BootGame() {
 	std::tie(fs, entry) = gamelist_window->GetGameFilesystem();
 
 	if (!fs) {
-		Output::Warning("The selected file or directory cannot be opened");
+		Output::Warning("Không thể mở tệp tin hoặc thư mục đã chọn.");
 		load_window->SetVisible(false);
 		game_loading = false;
 		return;
@@ -191,7 +191,7 @@ void Scene_GameBrowser::BootGame() {
 		load_window->SetVisible(false);
 		game_loading = false;
 		if (!gamelist_window->Refresh(fs, true)) {
-			Output::Warning("The selected file or directory cannot be opened");
+			Output::Warning("Không thể mở tệp tin hoặc thư mục đã chọn.");
 			return;
 		}
 		stack.push_back({ fs, gamelist_window->GetIndex() });

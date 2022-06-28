@@ -66,7 +66,7 @@ void Window_ShopBuy::DrawItem(int index) {
 	bool enabled = false;
 
 	if (!item) {
-		Output::Warning("Window ShopBuy: Invalid item ID {}", item_id);
+		Output::Warning("Window ShopBuy: ID vật phẩm {} không hợp lệ", item_id);
 	} else {
 		enabled = item->price <= Main_Data::game_party->GetGold() && Main_Data::game_party->GetItemCount(item_id) < Main_Data::game_party->GetMaxItemCount(item_id);
 		price = item->price;

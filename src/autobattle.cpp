@@ -173,33 +173,33 @@ double CalcSkillAutoBattleRank(const Game_Actor& source, const lcf::rpg::Skill& 
 			for (auto* target: Main_Data::game_party->GetActors()) {
 				auto target_rank = CalcSkillHealAutoBattleTargetRank(source, *target, skill, cond, apply_variance, emulate_bugs);
 				rank = std::max(rank, target_rank);
-				DebugLog("AUTOBATTLE: Actor {} Check Skill Single Ally {} Rank : {}({}): {} -> {}", source.GetName(), target->GetName(), skill.name, skill.ID, rank, target_rank);
+				DebugLog("AUTOBATTLE: Nhân vật {} Check Skill Single Ally {} Rank : {}({}): {} -> {}", source.GetName(), target->GetName(), skill.name, skill.ID, rank, target_rank);
 			}
 			break;
 		case lcf::rpg::Skill::Scope_party:
 			for (auto* target: Main_Data::game_party->GetActors()) {
 				auto target_rank = CalcSkillHealAutoBattleTargetRank(source, *target, skill, cond, apply_variance, emulate_bugs);
 				rank += target_rank;
-				DebugLog("AUTOBATTLE: Actor {} Check Skill Party Ally {} Rank : {}({}): {} -> {}", source.GetName(), target->GetName(), skill.name, skill.ID, rank, target_rank);
+				DebugLog("AUTOBATTLE: Nhân vật {} Check Skill Party Ally {} Rank : {}({}): {} -> {}", source.GetName(), target->GetName(), skill.name, skill.ID, rank, target_rank);
 			}
 			break;
 		case lcf::rpg::Skill::Scope_enemy:
 			for (auto* target: Main_Data::game_enemyparty->GetEnemies()) {
 				auto target_rank = CalcSkillDmgAutoBattleTargetRank(source, *target, skill, cond, apply_variance, emulate_bugs);
 				rank = std::max(rank, target_rank);
-				DebugLog("AUTOBATTLE: Actor {} Check Skill Single Enemy {} Rank : {}({}): {} -> {}", source.GetName(), target->GetName(), skill.name, skill.ID, rank, target_rank);
+				DebugLog("AUTOBATTLE: Nhân vật {} Check Skill Single Enemy {} Rank : {}({}): {} -> {}", source.GetName(), target->GetName(), skill.name, skill.ID, rank, target_rank);
 			}
 			break;
 		case lcf::rpg::Skill::Scope_enemies:
 			for (auto* target: Main_Data::game_enemyparty->GetEnemies()) {
 				auto target_rank = CalcSkillDmgAutoBattleTargetRank(source, *target, skill, cond, apply_variance, emulate_bugs);
 				rank += target_rank;
-				DebugLog("AUTOBATTLE: Actor {} Check Skill Party Enemy {} Rank : {}({}): {} -> {}", source.GetName(), target->GetName(), skill.name, skill.ID, rank, target_rank);
+				DebugLog("AUTOBATTLE: Nhân vật {} Check Skill Party Enemy {} Rank : {}({}): {} -> {}", source.GetName(), target->GetName(), skill.name, skill.ID, rank, target_rank);
 			}
 			break;
 		case lcf::rpg::Skill::Scope_self:
 			rank = CalcSkillHealAutoBattleTargetRank(source, source, skill, cond, apply_variance, emulate_bugs);
-			DebugLog("AUTOBATTLE: Actor {} Check Skill Self Rank : {}({}): {}", source.GetName(), skill.name, skill.ID, rank);
+			DebugLog("AUTOBATTLE: Nhân vật {} Check Skill Self Rank : {}({}): {}", source.GetName(), skill.name, skill.ID, rank);
 			break;
 	}
 	if (rank > 0.0) {
@@ -268,13 +268,13 @@ double CalcNormalAttackAutoBattleRank(const Game_Actor& source, Game_Battler::We
 		for (auto* target: targets) {
 			auto target_rank = CalcNormalAttackAutoBattleTargetRank(source, *target, weapon, cond, apply_variance, emulate_bugs);
 			rank += target_rank;
-			DebugLog("AUTOBATTLE: Actor {} Check Attack Party Enemy {} Rank : {} -> {}", source.GetName(), target->GetName(), rank, target_rank);
+			DebugLog("AUTOBATTLE: Nhân vật {} Check Attack Party Enemy {} Rank : {} -> {}", source.GetName(), target->GetName(), rank, target_rank);
 		}
 	} else {
 		for (auto* target: targets) {
 			auto target_rank = CalcNormalAttackAutoBattleTargetRank(source, *target, weapon, cond, apply_variance, emulate_bugs);
 			rank = std::max(rank, target_rank);
-			DebugLog("AUTOBATTLE: Actor {} Check Attack Single Enemy {} Rank : {} -> {}", source.GetName(), target->GetName(), rank, target_rank);
+			DebugLog("AUTOBATTLE: Nhân vật {} Check Attack Single Enemy {} Rank : {} -> {}", source.GetName(), target->GetName(), rank, target_rank);
 		}
 	}
 	return rank;
@@ -297,18 +297,18 @@ void SelectAutoBattleAction(Game_Actor& source,
 			auto* candidate_skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, skill_id);
 			if (candidate_skill) {
 				const auto rank = CalcSkillAutoBattleRank(source, *candidate_skill, cond, skill_variance, emulate_bugs);
-				DebugLog("AUTOBATTLE: Actor {} Check Skill Rank : {}({}): {}", source.GetName(), candidate_skill->name, candidate_skill->ID, rank);
+				DebugLog("AUTOBATTLE: Nhân vật {} Check Skill Rank : {}({}): {}", source.GetName(), candidate_skill->name, candidate_skill->ID, rank);
 				if (rank > skill_rank) {
 					skill_rank = rank;
 					skill = candidate_skill;
 				}
 			}
 		}
-		DebugLog("AUTOBATTLE: Actor {} Best Skill Rank : {}({}): {}", source.GetName(), skill->name, skill->ID, skill_rank);
+		DebugLog("AUTOBATTLE: Nhân vật {} Best Skill Rank : {}({}): {}", source.GetName(), skill->name, skill->ID, skill_rank);
 	}
 
 	double normal_attack_rank = CalcNormalAttackAutoBattleRank(source, weapon, cond, attack_variance, emulate_bugs);
-	DebugLog("AUTOBATTLE: Actor {} Normal Attack Rank : {}", source.GetName(), normal_attack_rank);
+	DebugLog("AUTOBATTLE: Nhân vật {} Normal Attack Rank : {}", source.GetName(), normal_attack_rank);
 
 	auto best_target_rank = 0.0;
 	Game_Battler* best_target = nullptr;
@@ -318,11 +318,11 @@ void SelectAutoBattleAction(Game_Actor& source,
 		// Choose Skill Target
 		switch (skill->scope) {
 			case lcf::rpg::Skill::Scope_enemies:
-				DebugLog("AUTOBATTLE: Actor {} Select Skill Target : ALL ENEMIES", source.GetName());
+				DebugLog("AUTOBATTLE: Nhân vật {} Select Skill Target : ALL ENEMIES", source.GetName());
 				source.SetBattleAlgorithm(std::make_shared<Game_BattleAlgorithm::Skill>(&source, Main_Data::game_enemyparty.get(), *skill));
 				return;
 			case lcf::rpg::Skill::Scope_party:
-				DebugLog("AUTOBATTLE: Actor {} Select Skill Target : ALL ALLIES", source.GetName());
+				DebugLog("AUTOBATTLE: Nhân vật {} Select Skill Target : ALL ALLIES", source.GetName());
 				source.SetBattleAlgorithm(std::make_shared<Game_BattleAlgorithm::Skill>(&source, Main_Data::game_party.get(), *skill));
 				return;
 			case lcf::rpg::Skill::Scope_enemy:
@@ -348,14 +348,14 @@ void SelectAutoBattleAction(Game_Actor& source,
 				break;
 		}
 		if (best_target) {
-			DebugLog("AUTOBATTLE: Actor {} Select Skill Target : {}", source.GetName(), best_target->GetName());
+			DebugLog("AUTOBATTLE: Nhân vật {} Select Skill Target : {}", source.GetName(), best_target->GetName());
 			source.SetBattleAlgorithm(std::make_shared<Game_BattleAlgorithm::Skill>(&source, best_target, *skill));
 		}
 		return;
 	}
 	// Choose normal attack
 	if (source.HasAttackAll(weapon)) {
-		DebugLog("AUTOBATTLE: Actor {} Select Attack Target : ALL ENEMIES", source.GetName());
+		DebugLog("AUTOBATTLE: Nhân vật {} Select Attack Target : ALL ENEMIES", source.GetName());
 		source.SetBattleAlgorithm(std::make_shared<Game_BattleAlgorithm::Normal>(&source, Main_Data::game_enemyparty.get()));
 		return;
 	}
@@ -370,7 +370,7 @@ void SelectAutoBattleAction(Game_Actor& source,
 	}
 
 	if (best_target != nullptr) {
-		DebugLog("AUTOBATTLE: Actor {} Select Attack Target : {}", source.GetName(), best_target->GetName());
+		DebugLog("AUTOBATTLE: Nhân vật {} Select Attack Target : {}", source.GetName(), best_target->GetName());
 		source.SetBattleAlgorithm(std::make_shared<Game_BattleAlgorithm::Normal>(&source, best_target));
 		return;
 	}

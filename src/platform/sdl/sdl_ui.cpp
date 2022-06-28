@@ -67,14 +67,14 @@ SdlUi::SdlUi(long width, long height, const Game_ConfigVideo& cfg) : BaseUi(cfg)
 #endif
 
 	if (SDL_Init(flags) < 0) {
-		Output::Error("Couldn't initialize SDL.\n{}\n", SDL_GetError());
+		Output::Error("Không thể khởi động SDL.\n{}\n", SDL_GetError());
 	}
 
 	sdl_surface = NULL;
 
 	BeginDisplayModeChange();
 		if (!RequestVideoMode(width, height, fs_flag)) {
-			Output::Error("No suitable video resolution found. Aborting.");
+			Output::Error("Không có độ phân giải phù hợp. Đang bỏ qua.");
 		}
 	EndDisplayModeChange();
 
@@ -87,7 +87,7 @@ SdlUi::SdlUi(long width, long height, const Game_ConfigVideo& cfg) : BaseUi(cfg)
 
 #if (defined(USE_JOYSTICK) && defined(SUPPORT_JOYSTICK)) || (defined(USE_JOYSTICK_AXIS) && defined(SUPPORT_JOYSTICK_AXIS))
 	if (SDL_InitSubSystem(SDL_INIT_JOYSTICK) < 0) {
-		Output::Warning("Couldn't initialize joystick. {}", SDL_GetError());
+		Output::Warning("Không thể khởi động tay cầm. {}", SDL_GetError());
 	}
 
 	SDL_JoystickEventState(1);
@@ -248,10 +248,10 @@ void SdlUi::EndDisplayModeChange() {
 
 					// Try a rollback to last mode
 					if (!RefreshDisplayMode()) {
-						Output::Error("Couldn't rollback to last display mode.\n{}", SDL_GetError());
+						Output::Error("Không thể trở lại chế độ hiển thị trước.\n{}", SDL_GetError());
 					}
 				} else {
-					Output::Error("Couldn't set display mode.\n{}", SDL_GetError());
+					Output::Error("Không thể cài đặt chế độ hiển thị.\n{}", SDL_GetError());
 				}
 			}
 

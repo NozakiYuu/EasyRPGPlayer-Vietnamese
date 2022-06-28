@@ -47,7 +47,7 @@ Background::Background(int terrain_id) : Drawable(Priority_Background)
 	const lcf::rpg::Terrain* terrain = lcf::ReaderUtil::GetElement(lcf::Data::terrains, terrain_id);
 
 	if (!terrain) {
-		Output::Warning("Background: Invalid terrain ID {}", terrain_id);
+		Output::Warning("Nền: ID địa hình {} không hợp lệ", terrain_id);
 		return;
 	}
 

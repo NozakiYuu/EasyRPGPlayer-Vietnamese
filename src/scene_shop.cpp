@@ -43,7 +43,7 @@ void Scene_Shop::Start() {
 	for (auto it = goods.begin(); it != goods.end();) {
 		const auto* item = lcf::ReaderUtil::GetElement(lcf::Data::items, *it);
 		if (!item) {
-			Output::Warning("Removed invalid item {} from shop", *it);
+			Output::Warning("Đã xoá vật phẩm {} không hợp lệ khỏi cửa hàng", *it);
 			it = goods.erase(it);
 		} else {
 			++it;

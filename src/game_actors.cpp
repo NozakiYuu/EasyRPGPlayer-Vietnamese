@@ -32,7 +32,7 @@ Game_Actors::Game_Actors() {
 void Game_Actors::SetSaveData(std::vector<lcf::rpg::SaveActor> save) {
 	// Ensure actor save data and LDB actors has correct size
 	if (save.size() > data.size()) {
-		Output::Warning("Game_Actors: Save game array size {} is larger than number of LDB actors {} : Dropping extras ...", save.size(), data.size());
+		Output::Warning("Game_Actors: Số nhân vật trong tệp tin lưu trò chơi ({}) lớn hơn số nhân vật trong dữ liệu của trò chơi ({}). Đang xoá một số nhân vật không tồn tại...", save.size(), data.size());
 	}
 
 	for (size_t i = 0; i < std::min(save.size(), data.size()); ++i) {

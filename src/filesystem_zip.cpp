@@ -172,7 +172,7 @@ ZipFilesystem::ZipFilesystem(std::string base_path, FilesystemView parent_fs, St
 			return a.first < b.first;
 		});
 	} else {
-		Output::Warning("ZipFS: {} is not a valid archive", GetPath());
+		Output::Warning("ZipFS: {} không phải là một tệp tin nén hợp lệ", GetPath());
 	}
 }
 
@@ -354,16 +354,16 @@ std::streambuf* ZipFilesystem::CreateInputStreambuffer(StringView path, std::ios
 
 				int zlib_error = inflate(&zlib_stream, Z_NO_FLUSH);
 				if (zlib_error == Z_OK) {
-					Output::Warning("ZipFS: zlib failed for {}: More data available (Archive corrupted?)", path_normalized);
+					Output::Warning("ZipFS: Không thể thực hiện zlib với {}: Tệp tin nén đã bị hỏng?", path_normalized);
 					return nullptr;
 				}
 				else if (zlib_error != Z_STREAM_END) {
-					Output::Warning("ZipFS: zlib failed for {}: {}", path_normalized, zlib_stream.msg);
+					Output::Warning("ZipFS: Không thể thực hiện zlib với {}: {}", path_normalized, zlib_stream.msg);
 					return nullptr;
 				}
 				return new Filesystem_Stream::InputMemoryStreamBuf(std::move(dec_buf));
 			} else {
-				Output::Warning("ZipFS: {} has unsupported compression format. Only Deflate is supported", path_normalized);
+				Output::Warning("ZipFS: {} có định dạng nén không được hỗ trợ. Hiện chỉ hỗ trợ định dạng nén Deflate", path_normalized);
 				return nullptr;
 			}
 		}

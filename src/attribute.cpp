@@ -33,7 +33,7 @@ int GetAttributeRateModifier(int attribute_id, int rate) {
 	const auto* attribute = lcf::ReaderUtil::GetElement(lcf::Data::attributes, attribute_id);
 
 	if (!attribute) {
-		Output::Warning("GetAttributeRate: Invalid attribute ID {}", attribute_id);
+		Output::Warning("GetAttributeRate: ID thuộc tính {} không hợp lệ", attribute_id);
 		return 0;
 	}
 
@@ -87,7 +87,7 @@ int ApplyAttributeMultiplier(int effect, const Game_Battler& target, Span<const 
 
 		const auto* attr = lcf::ReaderUtil::GetElement(lcf::Data::attributes, id);
 		if (!attr) {
-			Output::Warning("ApplyAttributeMultipler: Invalid attribute ID {}", id);
+			Output::Warning("ApplyAttributeMultipler: ID thuộc tính {} không hợp lệ", id);
 			break;
 		}
 
@@ -100,7 +100,7 @@ int ApplyAttributeMultiplier(int effect, const Game_Battler& target, Span<const 
 		}
 	}
 
-	// Negative attributes not supported in 2k.
+	// Negative attributes không được hỗ trợ in 2k.
 	auto limit = Player::IsRPG2k() ? -1 : INT_MIN;
 
 	if (physical > limit && magical > limit) {

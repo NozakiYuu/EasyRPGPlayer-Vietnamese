@@ -168,7 +168,7 @@ void Game_Actor::Fixup() {
 bool Game_Actor::UseItem(int item_id, const Game_Battler* source) {
 	const lcf::rpg::Item* item = lcf::ReaderUtil::GetElement(lcf::Data::items, item_id);
 	if (!item) {
-		Output::Warning("UseItem: Can't use invalid item {}", item_id);
+		Output::Warning("UseItem: Không thể sử dụng vật phẩm {} không hợp lệ", item_id);
 		return false;
 	}
 
@@ -195,7 +195,7 @@ bool Game_Actor::UseItem(int item_id, const Game_Battler* source) {
 bool Game_Actor::IsItemUsable(int item_id) const {
 	const lcf::rpg::Item* item = lcf::ReaderUtil::GetElement(lcf::Data::items, item_id);
 	if (!item) {
-		Output::Warning("IsItemUsable: Invalid item ID {}", item_id);
+		Output::Warning("IsItemUsable: ID vật phẩm {} không hợp lệ", item_id);
 		return false;
 	}
 
@@ -224,7 +224,7 @@ bool Game_Actor::IsSkillLearned(int skill_id) const {
 bool Game_Actor::IsSkillUsable(int skill_id) const {
 	const lcf::rpg::Skill* skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, skill_id);
 	if (!skill) {
-		Output::Warning("IsSkillUsable: Invalid skill ID {}", skill_id);
+		Output::Warning("IsSkillUsable: ID kĩ năng {} không hợp lệ", skill_id);
 		return false;
 	}
 
@@ -253,7 +253,7 @@ bool Game_Actor::IsSkillUsable(int skill_id) const {
 int Game_Actor::CalculateSkillCost(int skill_id) const {
 	const lcf::rpg::Skill* skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, skill_id);
 	if (!skill) {
-		Output::Warning("CalculateSkillCost: Invalid skill ID {}", skill_id);
+		Output::Warning("CalculateSkillCost: ID kĩ năng {} không hợp lệ", skill_id);
 		return 0;
 	}
 	return Algo::CalcSkillCost(*skill, GetMaxSp(), HasHalfSpCost());
@@ -263,7 +263,7 @@ bool Game_Actor::LearnSkill(int skill_id, PendingMessage* pm) {
 	if (skill_id > 0 && !IsSkillLearned(skill_id)) {
 		const lcf::rpg::Skill* skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, skill_id);
 		if (!skill) {
-			Output::Warning("Actor {}: Can't learn invalid skill {}", GetId(), skill_id);
+			Output::Warning("Nhân vật {}: Không thể học kĩ năng {} không hợp lệ", GetId(), skill_id);
 			return false;
 		}
 
@@ -334,7 +334,7 @@ int Game_Actor::SetEquipment(int equip_type, int new_item_id) {
 
 	const lcf::rpg::Item* new_item = lcf::ReaderUtil::GetElement(lcf::Data::items, new_item_id);
 	if (new_item_id != 0 && !new_item) {
-		Output::Warning("SetEquipment: Can't equip item with invalid ID {}", new_item_id);
+		Output::Warning("SetEquipment: Không thể trang bị vật phẩm với ID {} không hợp lệ", new_item_id);
 		new_item_id = 0;
 	}
 
@@ -849,7 +849,7 @@ void Game_Actor::ChangeLevel(int new_level, PendingMessage* pm) {
 bool Game_Actor::IsEquippable(int item_id) const {
 	const lcf::rpg::Item* item = lcf::ReaderUtil::GetElement(lcf::Data::items, item_id);
 	if (!item) {
-		Output::Warning("IsEquippable: Invalid item ID {}", item_id);
+		Output::Warning("IsEquippable: ID vật phẩm {} không hợp lệ", item_id);
 		return false;
 	}
 
@@ -924,7 +924,7 @@ void Game_Actor::ChangeBattleCommands(bool add, int id) {
 	if (add) {
 		const lcf::rpg::BattleCommand* cmd = lcf::ReaderUtil::GetElement(lcf::Data::battlecommands.commands, id);
 		if (!cmd) {
-			Output::Warning("ChangeBattleCommands: Can't add invalid battle command {}", id);
+			Output::Warning("ChangeBattleCommands: Không thể thêm câu lệnh chiến đấu {} không hợp lệ", id);
 			return;
 		}
 
@@ -988,7 +988,7 @@ const std::vector<const lcf::rpg::BattleCommand*> Game_Actor::GetBattleCommands(
 
 		const lcf::rpg::BattleCommand* cmd = lcf::ReaderUtil::GetElement(lcf::Data::battlecommands.commands, command_index);
 		if (!cmd) {
-			Output::Warning("GetBattleCommands: Invalid battle command ID {}", command_index);
+			Output::Warning("GetBattleCommands: ID câu lệnh chiến đấu {} không hợp lệ", command_index);
 			continue;
 		}
 
@@ -1018,7 +1018,7 @@ void Game_Actor::ChangeClass(int new_class_id,
 {
 	const auto* cls = lcf::ReaderUtil::GetElement(lcf::Data::classes, new_class_id);
 	if (new_class_id != 0 && cls == nullptr) {
-		Output::Warning("Actor {}: Can't change to invalid class {}", GetId(), new_class_id);
+		Output::Warning("Nhân vật {}: Không thể thay đổi thành chức nghiệp {} không hợp lệ", GetId(), new_class_id);
 		return;
 	}
 
@@ -1220,7 +1220,7 @@ int Game_Actor::GetBattleAnimationId() const {
 		} else {
 			const lcf::rpg::BattlerAnimation* anima = lcf::ReaderUtil::GetElement(lcf::Data::battleranimations, dbActor->battler_animation);
 			if (!anima) {
-				Output::Warning("Actor {}: Invalid battle animation ID {}", GetId(), dbActor->battler_animation);
+				Output::Warning("Nhân vật {}: ID hiệu ứng chiến đấu {} không hợp lệ", GetId(), dbActor->battler_animation);
 				return 0;
 			}
 
@@ -1292,15 +1292,15 @@ void Game_Actor::RemoveInvalidData() {
 		lcf::rpg::Item* item = lcf::ReaderUtil::GetElement(lcf::Data::items, eq_id);
 
 		if (!item && eq_id != 0) {
-			Output::Debug("Actor {}: Removing invalid item {} from equipment slot {}",
+			Output::Debug("Nhân vật {}: Removing invalid item {} from equipment slot {}",
 			GetId(), eq_id, eq_types[i]);
 			SetEquipment(i + 1, 0);
 		} else if (item && item->type != eq_types[i]) {
-			Output::Debug("Actor {}: Removing item {} (of type {}) from equipment slot {} (needs type {})",
+			Output::Debug("Nhân vật {}: Removing item {} (of type {}) from equipment slot {} (needs type {})",
 			GetId(), item->ID, item->type, i + 1, eq_types[i]);
 			SetEquipment(i + 1, 0);
 		} else if (item && !IsItemUsable(item->ID)) {
-			Output::Debug("Actor {}: Removing item {} from equipment slot {} (Not equippable by this actor)",
+			Output::Debug("Nhân vật {}: Removing item {} from equipment slot {} (Not equippable by this actor)",
 			GetId(), item->ID, i + 1);
 			SetEquipment(i + 1, 0);
 		}
@@ -1310,7 +1310,7 @@ void Game_Actor::RemoveInvalidData() {
 	if (data.class_id > 0) {
 		const lcf::rpg::Class* cls = lcf::ReaderUtil::GetElement(lcf::Data::classes, data.class_id);
 		if (!cls) {
-			Output::Warning("Actor {}: Removing invalid class {}", GetId(), data.class_id);
+			Output::Warning("Nhân vật {}: Đang xoá chức nghiệp {} không hợp lệ", GetId(), data.class_id);
 			ChangeClass(0, GetLevel(), eSkillNoChange, eParamNoChange, nullptr);
 		}
 	}
@@ -1319,14 +1319,14 @@ void Game_Actor::RemoveInvalidData() {
 	for (int16_t skill_id : GetSkills()) {
 		const lcf::rpg::Skill* skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, skill_id);
 		if (!skill) {
-			Output::Warning("Actor {}: Removing invalid skill {}", GetId(), skill_id);
+			Output::Warning("Nhân vật {}: Đang xoá kĩ năng {} không hợp lệ", GetId(), skill_id);
 			UnlearnSkill(skill_id);
 		}
 	}
 
 	// Remove invalid states
 	if (GetStates().size() > lcf::Data::states.size()) {
-		Output::Warning("Actor {}: State array contains invalid states ({} > {})", GetId(), GetStates().size(), lcf::Data::states.size());
+		Output::Warning("Nhân vật {}: Danh sách trạng thái có một số trạng thái không hợp lệ ({} > {})", GetId(), GetStates().size(), lcf::Data::states.size());
 		GetStates().resize(lcf::Data::states.size());
 	}
 
@@ -1334,12 +1334,12 @@ void Game_Actor::RemoveInvalidData() {
 	// Special handling for the game COLORS: Lost Memories which uses level 0
 	// through database editing. Hopefully no game uses negative levels.
 	if (GetLevel() == 0) {
-		Output::Debug("Actor {}: Special handling for level 0", GetId());
+		Output::Debug("Nhân vật {}: Special handling for level 0", GetId());
 	} else if (GetLevel() < 0) {
-		Output::Warning("Actor {}: Invalid level {}, changed to 1", GetId(), GetLevel());
+		Output::Warning("Nhân vật {}: Cấp độ {} không hợp lệ, đã sửa lại thành 1", GetId(), GetLevel());
 		SetLevel(1);
 	} else if (GetLevel() > GetMaxLevel()) {
-		Output::Warning("Actor {}: Invalid level {}, changed to {}", GetId(), GetLevel(), GetMaxLevel());
+		Output::Warning("Nhân vật {}: Cấp độ {} không hợp lệ, đã sửa lại thành {}", GetId(), GetLevel(), GetMaxLevel());
 		SetLevel(GetMaxLevel());
 	}
 }

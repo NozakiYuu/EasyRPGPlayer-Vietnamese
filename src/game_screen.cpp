@@ -359,13 +359,13 @@ void Game_Screen::Update() {
 int Game_Screen::ShowBattleAnimation(int animation_id, int target_id, bool global, int start_frame) {
 	const lcf::rpg::Animation* anim = lcf::ReaderUtil::GetElement(lcf::Data::animations, animation_id);
 	if (!anim) {
-		Output::Warning("ShowBattleAnimation: Invalid battle animation ID {}", animation_id);
+		Output::Warning("ShowBattleAnimation: ID hiệu ứng chiến đấu {} không hợp lệ", animation_id);
 		return 0;
 	}
 
 	auto* chara = Game_Character::GetCharacter(target_id, target_id);
 	if (!chara) {
-		Output::Warning("ShowBattleAnimation: Invalid target event ID {}", target_id);
+		Output::Warning("ShowBattleAnimation: ID sự kiện mục tiêu không họp lệ {}", target_id);
 		CancelBattleAnimation();
 		return 0;
 	}

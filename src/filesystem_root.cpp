@@ -41,7 +41,7 @@ FilesystemView RootFilesystem::Create(StringView path) const {
 		// Debug feature: root:// is a pseudo namespace
 		// Shows a list of all namespaces in the Game Browser
 		if (path.size() > root_ns.size()) {
-			Output::Error("root:// does not support any path suffix");
+			Output::Error("root:// không hỗ trợ thêm hậu tố nào");
 		}
 		return Subtree("");
 	}
@@ -118,7 +118,7 @@ const Filesystem& RootFilesystem::FilesystemForPath(StringView path) const {
 
 	if (it == fs_list.end()) {
 		// Only possible to trigger via commandline or bogus code, always user/dev error -> abort
-		Output::Error("Unsupported namespace {}://{}", ns, path);
+		Output::Error("Không gian tên không được hỗ trợ {}://{}", ns, path);
 	}
 
 	return *it->second;

@@ -141,7 +141,7 @@ Game_Variables::Game_Variables(Var_t minval, Var_t maxval)
 	: _min(minval), _max(maxval)
 {
 	if (minval >= maxval) {
-		Output::Error("Variables: Invalid var range: [{}, {}]", minval, maxval);
+		Output::Error("Biến: Phạm vi không hợp lệ: [{}, {}]", minval, maxval);
 	}
 	_variables.reserve(lcf::Data::variables.size());
 }

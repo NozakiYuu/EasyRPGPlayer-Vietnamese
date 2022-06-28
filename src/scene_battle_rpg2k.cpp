@@ -964,8 +964,8 @@ void Scene_Battle_Rpg2k::SetBattleActionSubState(int substate, bool reset_index)
 
 Scene_Battle_Rpg2k::BattleActionReturn Scene_Battle_Rpg2k::ProcessBattleAction(Game_BattleAlgorithm::AlgorithmBase* action) {
 	if (action == nullptr) {
-		Output::Warning("ProcessBattleAction: Invalid battle action");
-		Output::Warning("Please report a bug!");
+		Output::Warning("ProcessBattleAction: Hành động chiến đấu không hợp lệ");
+		Output::Warning("Hãy báo cáo lỗi này!");
 		return BattleActionReturn::eFinished;
 	}
 
@@ -1803,8 +1803,8 @@ void Scene_Battle_Rpg2k::CreateExecutionOrder() {
 
 	for (const auto& battler : battle_actions) {
 		if (std::count(battle_actions.begin(), battle_actions.end(), battler) > 1) {
-			Output::Warning("CreateExecutionOrder: Battler {} ({}) has multiple battle actions", battler->GetId(), battler->GetName());
-			Output::Warning("Please report a bug!");
+			Output::Warning("CreateExecutionOrder: Nhân vật {} ({}) có nhiều hành động chiến đấu", battler->GetId(), battler->GetName());
+			Output::Warning("Hãy báo cáo lỗi này!");
 			break;
 		}
 	}

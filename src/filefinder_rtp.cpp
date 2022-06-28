@@ -313,11 +313,11 @@ Filesystem_Stream::InputStream FileFinder_RTP::Lookup(StringView dir, StringView
 		if (is_rtp_asset) {
 			if (is && game_has_full_package_flag && !warning_broken_rtp_game_shown && !is_audio_asset) {
 				warning_broken_rtp_game_shown = true;
-				Output::Warning("This game claims it does not need the RTP, but actually uses files from it!");
+				Output::Warning("Trò chơi này nói rằng nó không cần RTP, nhưng lại sử dụng tệp tin từ RTP đó!");
 			} else if (!is && !game_has_full_package_flag && !is_audio_asset) {
-				std::string msg = "Cannot find: {}/{}. " +
+				std::string msg = "Không thể tìm tệp tin: {}/{}. " +
 								  std::string(search_paths.empty() ?
-											  "Install RTP {} to resolve this warning." : "RTP {} was probably not installed correctly.");
+											  "Hãy cài RTP {} để sửa lỗi này." : "RTP {} có lẽ không được cài đặt đúng cách.");
 				Output::Warning(msg, dir, name, Player::EngineVersion());
 			}
 		}

@@ -56,7 +56,7 @@ static int psp2_audio_thread(unsigned int, void*){
 		instance->UnlockMutex();
 
 		int res = sceAudioOutOutput(audio_chn, buffer.data());
-		if (res < 0) Output::Error("An error occurred in audio thread ({:#X})", res);
+		if (res < 0) Output::Error("Lỗi hệ thống âm thanh ({:#X})", res);
 	}
 }
 
@@ -73,7 +73,7 @@ Psp2Audio::Psp2Audio() :
 
 	int res = sceKernelStartThread(audio_thread, 0, 0);
 	if (res != 0) {
-		Output::Error("Failed to init audio thread ({:#x})", res);
+		Output::Error("Không thể khởi động hệ thống âm thanh ({:#x})", res);
 		return;
 	}
 }

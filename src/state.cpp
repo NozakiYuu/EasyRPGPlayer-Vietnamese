@@ -26,7 +26,7 @@ namespace State {
 bool Add(int state_id, StateVec& states, const PermanentStates& ps, bool allow_battle_states) {
 	const lcf::rpg::State* state = lcf::ReaderUtil::GetElement(lcf::Data::states, state_id);
 	if (!state) {
-		Output::Warning("State::Add: Can't add state with invalid ID {}", state_id);
+		Output::Warning("State::Add: Không thể thêm trạng thái với ID {} không hợp lệ", state_id);
 		return false;
 	}
 
@@ -63,7 +63,7 @@ bool Add(int state_id, StateVec& states, const PermanentStates& ps, bool allow_b
 bool Remove(int state_id, StateVec& states, const PermanentStates& ps) {
 	const lcf::rpg::State* state = lcf::ReaderUtil::GetElement(lcf::Data::states, state_id);
 	if (!state) {
-		Output::Warning("State::Remove: Can't remove state with invalid ID {}", state_id);
+		Output::Warning("State::Remove: Không thể xoá trạng thái với ID {} không hợp lệ", state_id);
 		return false;
 	}
 
@@ -91,7 +91,7 @@ bool RemoveAllBattle(StateVec& states, const PermanentStates& ps) {
 		auto state_id = i + 1;
 		auto* state = lcf::ReaderUtil::GetElement(lcf::Data::states, state_id);
 		if (state == nullptr) {
-			Output::Warning("State::RemoveAllBattle: Can't remove state with invalid ID {}", state_id);
+			Output::Warning("State::RemoveAllBattle: Không thể xoá trạng thái với ID {} không hợp lệ", state_id);
 			continue;
 		}
 		if (state->type == lcf::rpg::State::Persistence_persists) {
@@ -129,7 +129,7 @@ lcf::rpg::State::Restriction GetSignificantRestriction(const StateVec& states) {
 
 		auto* state = lcf::ReaderUtil::GetElement(lcf::Data::states, state_id);
 		if (state == nullptr) {
-			Output::Warning("State::GetSignificantRestriction: Can't remove state with invalid ID {}", state_id);
+			Output::Warning("State::GetSignificantRestriction: Không thể xoá trạng thái với ID {} không hợp lệ", state_id);
 			continue;
 		}
 
@@ -168,7 +168,7 @@ const lcf::rpg::State* GetSignificantState(const StateVec& states) {
 
 		auto* state = lcf::ReaderUtil::GetElement(lcf::Data::states, state_id);
 		if (state == nullptr) {
-			Output::Warning("State::GetSignificantState: Can't remove state with invalid ID {}", state_id);
+			Output::Warning("State::GetSignificantState: Không thể xoá trạng thái với ID {} không hợp lệ", state_id);
 			continue;
 		}
 
@@ -191,7 +191,7 @@ int GetStateRate(int state_id, int rate) {
 	const lcf::rpg::State* state = lcf::ReaderUtil::GetElement(lcf::Data::states, state_id);
 
 	if (!state) {
-		Output::Warning("State::GetStateRate: Invalid state ID {}", state_id);
+		Output::Warning("State::GetStateRate: ID trạng thái {} không hợp lệ", state_id);
 		return 0;
 	}
 

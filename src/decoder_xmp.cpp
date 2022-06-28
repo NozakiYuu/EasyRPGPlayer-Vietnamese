@@ -79,7 +79,7 @@ bool XMPDecoder::Open(Filesystem_Stream::InputStream stream) {
 
 	int res = xmp_load_module_from_callbacks(ctx, &stream, vio);
 	if (res != 0) {
-		error_message = "XMP: Error loading file";
+		error_message = "XMP: Không thể tải file";
 		return false;
 	}
 

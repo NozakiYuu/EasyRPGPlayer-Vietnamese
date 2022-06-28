@@ -88,7 +88,7 @@ void Scene_Battle::Start() {
 	const lcf::rpg::Troop* troop = lcf::ReaderUtil::GetElement(lcf::Data::troops, troop_id);
 
 	if (!troop) {
-		Output::Warning("Invalid Monster Party ID {}", troop_id);
+		Output::Warning("ID đội quân quái thú {} không hợp lệ", troop_id);
 		EndBattle(BattleResult::Victory);
 		return;
 	}
@@ -336,7 +336,7 @@ Game_Enemy* Scene_Battle::EnemySelected() {
 		{
 			const lcf::rpg::Skill* skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, item->skill_id);
 			if (!skill) {
-				Output::Warning("EnemySelected: Item {} references invalid skill {}", item->ID, item->skill_id);
+				Output::Warning("EnemySelected: Vật phẩm {} có liên quan tới kĩ năng {} không hợp lệ", item->ID, item->skill_id);
 				return nullptr;
 			}
 			active_actor->SetBattleAlgorithm(std::make_shared<Game_BattleAlgorithm::Skill>(active_actor, target, *skill, item));
@@ -369,7 +369,7 @@ Game_Actor* Scene_Battle::AllySelected() {
 		{
 			const lcf::rpg::Skill* skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, item->skill_id);
 			if (!skill) {
-				Output::Warning("AllySelected: Item {} references invalid skill {}", item->ID, item->skill_id);
+				Output::Warning("AllySelected: Vật phẩm {} có liên quan tới kĩ năng {} không hợp lệ", item->ID, item->skill_id);
 				return nullptr;
 			}
 			active_actor->SetBattleAlgorithm(std::make_shared<Game_BattleAlgorithm::Skill>(active_actor, &target, *skill, item));
@@ -428,7 +428,7 @@ void Scene_Battle::ItemSelected() {
 		case lcf::rpg::Item::Type_special: {
 			const lcf::rpg::Skill* skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, item->skill_id);
 			if (!skill) {
-				Output::Warning("ItemSelected: Item {} references invalid skill {}", item->ID, item->skill_id);
+				Output::Warning("ItemSelected: Vật phẩm {} có liên quan tới kĩ năng {} không hợp lệ", item->ID, item->skill_id);
 				return;
 			}
 			AssignSkill(skill, item);
@@ -557,9 +557,9 @@ void Scene_Battle::ActionSelectedCallback(Game_Battler* for_battler) {
 	assert(for_battler->GetBattleAlgorithm() != nullptr);
 
 	if (for_battler->GetBattleAlgorithm() == nullptr) {
-		Output::Warning("ActionSelectedCallback: Invalid action for battler {} ({})",
-				for_battler->GetId(), for_battler->GetName());
-		Output::Warning("Please report a bug!");
+		Output::Warning("ActionSelectedCallback: Hành động {} cho nhân vật {} không hợp lệ",
+				for_battler->GetName(), for_battler->GetId());
+		Output::Warning("Hãy báo cáo lỗi này!");
 	}
 
 	battle_actions.push_back(for_battler);

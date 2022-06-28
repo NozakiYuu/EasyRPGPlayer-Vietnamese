@@ -72,7 +72,7 @@ void Scene_Item::Update() {
 			} else if (item.type == lcf::rpg::Item::Type_special && item.skill_id > 0) {
 				const lcf::rpg::Skill* skill = lcf::ReaderUtil::GetElement(lcf::Data::skills, item.skill_id);
 				if (!skill) {
-					Output::Warning("Scene Item: Item references invalid skill ID {}", item.skill_id);
+					Output::Warning("Scene Item: Vật phẩm có liên quan tới ID kĩ năng {} không hợp lệ", item.skill_id);
 					return;
 				}
 

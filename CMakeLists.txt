@@ -811,7 +811,7 @@ if(${PLAYER_TARGET_PLATFORM} STREQUAL "SDL2")
 	set_property(CACHE PLAYER_AUDIO_BACKEND PROPERTY STRINGS SDL2 OFF)
 
 	if(${PLAYER_AUDIO_BACKEND} STREQUAL "SDL2_mixer")
-		message(FATAL_ERROR "SDL2_mixer is not supported anymore. Use SDL2 instead.")
+		message(FATAL_ERROR "SDL2_mixer is không được hỗ trợ anymore. Use SDL2 instead.")
 	endif()
 else()
 	set(PLAYER_AUDIO_BACKEND "Default" CACHE STRING "Audio system to use. Options: Default OFF")

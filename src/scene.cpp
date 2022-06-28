@@ -283,7 +283,7 @@ void Scene::PopUntil(SceneType type) {
 		++count;
 	}
 
-	Output::Warning("The requested scene {} was not on the stack", scene_names[type]);
+	Output::Warning("Cảnh được yêu cầu {} không có ở trong ngăn xếp", scene_names[type]);
 	DEBUG_VALIDATE("PopUntil");
 }
 
@@ -336,12 +336,12 @@ inline void Scene::DebugValidate(const char* caller) {
 				auto fmt =  (s == scene) ? "--> {} <--" : "  {}";
 				Output::Debug(fmt, scene_names[s->type]);
 			}
-			Output::Error("Multiple scenes of type={} in the Scene instances stack!", scene_names[scene->type]);
+			Output::Error("Có nhiều cảnh có loại là {} trong danh sách các cảnh!", scene_names[scene->type]);
 		}
 		present[scene->type] = true;
 	}
 	if (instances[0]->type != Null) {
-		Output::Error("Scene.instances[0] is of type={} in the Scene instances stack!", scene_names[instances[0]->type]);
+		Output::Error("Scene.instances[0] có loại là {} trong danh sách các cảnh!", scene_names[instances[0]->type]);
 	}
 }
 

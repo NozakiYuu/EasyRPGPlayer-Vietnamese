@@ -482,7 +482,7 @@ Game_Config Player::ParseCommandLine(std::vector<std::string> arguments) {
 			if (arg.NumValues() > 0) {
 				auto gamefs = FileFinder::Root().Create(FileFinder::MakeCanonical(arg.Value(0), 0));
 				if (!gamefs) {
-					Output::Error("Invalid --project-path {}", arg.Value(0));
+					Output::Error("--project-path {} không hợp lệ", arg.Value(0));
 				}
 				FileFinder::SetGameFilesystem(gamefs);
 			}
@@ -492,7 +492,7 @@ Game_Config Player::ParseCommandLine(std::vector<std::string> arguments) {
 			if (arg.NumValues() > 0) {
 				auto savefs = FileFinder::Root().Create(FileFinder::MakeCanonical(arg.Value(0), 0));
 				if (!savefs) {
-					Output::Error("Invalid --save-path {}", arg.Value(0));
+					Output::Error("--save-path {} không hợp lệ", arg.Value(0));
 				}
 				FileFinder::SetSaveFilesystem(savefs);
 			}
@@ -674,7 +674,7 @@ void Player::CreateGameObjects() {
 	GetEncoding();
 	escape_symbol = lcf::ReaderUtil::Recode("\\", encoding);
 	if (escape_symbol.empty()) {
-		Output::Error("Invalid encoding: {}.", encoding);
+		Output::Error("Mã hoá không hợp lệ: {}.", encoding);
 	}
 	escape_char = Utils::DecodeUTF32(Player::escape_symbol).front();
 
@@ -771,7 +771,7 @@ void Player::CreateGameObjects() {
 	if ((patch & PatchOverride) == 0) {
 		if (!FileFinder::Game().FindFile("dynloader.dll").empty()) {
 			patch |= PatchDynRpg;
-			Output::Warning("This game uses DynRPG and will not run properly.");
+			Output::Warning("Trò chơi này sử dụng DynRPG và sẽ không thể chạy tốt.");
 		}
 
 		if (!FileFinder::Game().FindFile("accord.dll").empty()) {
@@ -882,10 +882,10 @@ void Player::GuessNonStandardExtensions() {
 		rpg2kRemap = FileExtGuesser::GetRPG2kProjectWithRenames(FileFinder::Game());
 		if (rpg2kRemap.Empty()) {
 			// Unlikely to happen because of the game browser only launches valid games
-			Output::Error("{}\n\n{}\n\n{}\n\n{}","No valid game was found.",
-				"EasyRPG must be run from a game folder containing\nRPG_RT.ldb and RPG_RT.lmt.",
-				"This engine only supports RPG Maker 2000 and 2003\ngames.",
-				"RPG Maker XP, VX, VX Ace and MV are NOT supported.");
+			Output::Error("{}\n\n{}\n\n{}\n\n{}","Không tìm thấy trò chơi nào.",
+				"EasyRPG chỉ được chạy ở các trò chơi có các tệp\ntin RPG_RT.ldb and RPG_RT.lmt.",
+				"Phần mềm này chỉ hỗ trợ các trò chơi RPG Maker\n2000 và 2003.",
+				"RPG Maker XP, VX, VX Ace và MV không được hỗ trợ.");
 		}
 	}
 
@@ -913,7 +913,7 @@ void Player::LoadDatabase() {
 		std::string edb = FileFinder::Game().FindFile(DATABASE_NAME_EASYRPG);
 		auto edb_stream = FileFinder::Game().OpenInputStream(edb, std::ios_base::in);
 		if (!edb_stream) {
-			Output::Error("Error loading {}", DATABASE_NAME_EASYRPG);
+			Output::Error("Không thể tải {}", DATABASE_NAME_EASYRPG);
 			return;
 		}
 
@@ -928,7 +928,7 @@ void Player::LoadDatabase() {
 		std::string emt = FileFinder::Game().FindFile(TREEMAP_NAME_EASYRPG);
 		auto emt_stream = FileFinder::Game().OpenInputStream(emt, std::ios_base::in);
 		if (!emt_stream) {
-			Output::Error("Error loading {}", TREEMAP_NAME_EASYRPG);
+			Output::Error("Không thể tải {}", TREEMAP_NAME_EASYRPG);
 			return;
 		}
 
@@ -947,7 +947,7 @@ void Player::LoadDatabase() {
 
 		auto ldb_stream = FileFinder::Game().OpenInputStream(ldb);
 		if (!ldb_stream) {
-			Output::Error("Error loading {}", ldb_name);
+			Output::Error("Không thể tải {}", ldb_name);
 			return;
 		}
 
@@ -961,7 +961,7 @@ void Player::LoadDatabase() {
 
 		auto lmt_stream = FileFinder::Game().OpenInputStream(lmt);
 		if (!lmt_stream) {
-			Output::Error("Error loading {}", lmt_name);
+			Output::Error("Không thể tải {}", lmt_name);
 			return;
 		}
 
@@ -1024,7 +1024,7 @@ void Player::LoadSavegame(const std::string& save_name, int save_id) {
 
 	auto save_stream = FileFinder::Save().OpenInputStream(save_name);
 	if (!save_stream) {
-		Output::Error("Error loading {}", save_name);
+		Output::Error("Không thể tải {}", save_name);
 		return;
 	}
 
@@ -1054,7 +1054,7 @@ void Player::LoadSavegame(const std::string& save_name, int save_id) {
 	Output::Debug("Savegame version {} ({})", ver, verstr.str());
 
 	if (ver > PLAYER_SAVEGAME_VERSION) {
-		Output::Warning("This savegame was created with {} which is newer than the current version of EasyRPG Player ({})",
+		Output::Warning("Tệp tin lưu trò chơi này được tạo bằng {} có phiên bản mới hơn phiên bản hiện tại của EasyRPG Player ({}).",
 			verstr.str(), Version::STRING);
 	}
 
@@ -1162,7 +1162,7 @@ void Player::SetupBattleTest() {
 
 	auto* troop = lcf::ReaderUtil::GetElement(lcf::Data::troops, args.troop_id);
 	if (troop == nullptr) {
-		Output::Error("BattleTest: Invalid Monster Party ID {}", args.troop_id);
+		Output::Error("BattleTest: ID đội quân quái thú {} không hợp lệ", args.troop_id);
 	}
 
 	if (Game_Battle::battle_test.enabled) {
@@ -1291,7 +1291,7 @@ Options:
       --fps-render-window  Render the frames per second counter in windowed mode.
       --fps-limit          Set a custom frames per second limit. The default is 60 FPS.
                            Set to 0 to run with unlimited frames per second.
-                           This option is not supported on all platforms.
+                           This option is không được hỗ trợ on all platforms.
       --no-vsync           Disable vertical sync and use fps-limit. Even without
                            this option, vsync may not be supported on all platforms.
       --enable-mouse       Use mouse click for decision and scroll wheel for lists

@@ -113,7 +113,7 @@ bool Window_Skill::CheckInclude(int skill_id) {
 			return skill->type == subset;
 		}
 
-		Output::Warning("Window Skill: Invalid skill ID {}", skill_id);
+		Output::Warning("Window Skill: ID kĩ năng {} không hợp lệ", skill_id);
 		return false;
 	}
 }

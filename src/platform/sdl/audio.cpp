@@ -73,7 +73,7 @@ SdlAudio::SdlAudio() :
 	GenericAudio()
 {
 	if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0) {
-		Output::Warning("Couldn't init audio: {}", SDL_GetError());
+		Output::Warning("Không thể tải âm thanh: {}", SDL_GetError());
 		return;
 	}
 
@@ -112,7 +112,7 @@ SdlAudio::SdlAudio() :
 #endif
 
 	if (!init_success) {
-		Output::Warning("Couldn't open audio: {}", SDL_GetError());
+		Output::Warning("Không thể mở tệp tin âm thanh: {}", SDL_GetError());
 		return;
 	}
 

@@ -58,7 +58,7 @@ GenericAudio::GenericAudio() {
 
 void GenericAudio::BGM_Play(Filesystem_Stream::InputStream stream, int volume, int pitch, int fadein) {
 	if (!stream) {
-		Output::Warning("Couldn't play BGM {}: File not readable", stream.GetName());
+		Output::Warning("Không thể phát nhạc nền {}: Tệp tin không thể đọc được", stream.GetName());
 		return;
 	}
 
@@ -164,7 +164,7 @@ void GenericAudio::BGM_Pitch(int pitch) {
 
 void GenericAudio::SE_Play(std::unique_ptr<AudioSeCache> se, int volume, int pitch) {
 	if (!se) {
-		Output::Warning("SE_Play: AudioSeCache data is NULL");
+		Output::Warning("SE_Play: Dữ liệu của AudioSeCache là KHÔNG XÁC ĐỊNH");
 		return;
 	}
 
@@ -200,7 +200,7 @@ bool GenericAudio::PlayOnChannel(BgmChannel& chan, Filesystem_Stream::InputStrea
 	chan.stopped = false; // Unstop channel so the audio thread doesn't delete it
 
 	if (!filestream) {
-		Output::Warning("BGM file not readable: {}", filestream.GetName());
+		Output::Warning("Không thể đọc tập tin nhạc nền: {}", filestream.GetName());
 		return false;
 	}
 
@@ -256,7 +256,7 @@ bool GenericAudio::PlayOnChannel(BgmChannel& chan, Filesystem_Stream::InputStrea
 
 		return true;
 	} else {
-		Output::Warning("Couldn't play BGM {}. Format not supported", filestream.GetName());
+		Output::Warning("Không thể phát nhạc nền {}. Định dạng không được hỗ trợ", filestream.GetName());
 	}
 
 	return false;

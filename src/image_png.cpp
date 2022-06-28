@@ -69,13 +69,13 @@ static bool ReadPNGWithReadFunction(png_voidp user_data, png_rw_ptr fn, bool tra
 
 	png_struct *png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, on_png_error, on_png_warning);
 	if (png_ptr == NULL) {
-		Output::Warning("Couldn't allocate PNG structure");
+		Output::Warning("Không thể phân bổ cấu trúc của tệp tin PNG");
 		return false;
 	}
 
 	png_info *info_ptr = png_create_info_struct(png_ptr);
 	if (info_ptr == NULL) {
-		Output::Warning("Couldn't allocate PNG info structure");
+		Output::Warning("Không thể phân bổ cấu trúc thông tin của tệp tin PNG");
 		return false;
 	}
 
@@ -95,7 +95,7 @@ static bool ReadPNGWithReadFunction(png_voidp user_data, png_rw_ptr fn, bool tra
 
 	pixels = malloc(w * h * 4);
 	if (!pixels) {
-		Output::Warning("Error allocating PNG pixel buffer.");
+		Output::Warning("Lỗi phân bổ bộ đệm pixel của tệp tin PNG.");
 		return false;
 	}
 
@@ -253,14 +253,14 @@ static void flush_stream(png_structp out_ptr) {
 bool ImagePNG::WritePNG(Filesystem_Stream::OutputStream& os, uint32_t width, uint32_t height, uint32_t* data) {
 	png_structp write = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 	if (!write) {
-		Output::Warning("Bitmap::WritePNG: error in png_create_write");
+		Output::Warning("Bitmap::WritePNG: Có lỗi trong hàm png_create_write");
 		return false;
 	}
 
 	png_infop info = png_create_info_struct(write);
 	if (!info) {
 		png_destroy_write_struct(&write, &info);
-		Output::Warning("ImagePNG::WritePNG: error in png_create_info_struct");
+		Output::Warning("ImagePNG::WritePNG: Có lỗi trong hàm png_create_info_struct");
 		return false;
 	}
 

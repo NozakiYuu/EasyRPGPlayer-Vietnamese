@@ -130,13 +130,13 @@ namespace {
 
 	void delete_face(FT_Face f) {
 		if(FT_Done_Face(f) != FT_Err_Ok) {
-			Output::Warning("FT_Face deleting error.");
+			Output::Warning("Lỗi khi xoá FT_Face.");
 		}
 	}
 
 	void delete_library(FT_Library f) {
 		if(FT_Done_Library(f) != FT_Err_Ok) {
-			Output::Warning("FT_Library deleting error.");
+			Output::Warning("Lỗi khi xoá FT_Library.");
 		}
 	}
 
@@ -245,7 +245,7 @@ Rect FTFont::GetSize(StringView txt) const {
 	int const s = Font::Default()->GetSize(txt).width;
 
 	if (s == -1) {
-		Output::Warning("Text contains invalid chars. Is the encoding correct?");
+		Output::Warning("Đoạn chữ có chứa kí tự không hợp lệ. Kiểm tra xem loại mã hoá đã đúng chưa?");
 
 		return Rect(0, 0, pixel_size() * txt.length() / 2, pixel_size());
 	} else {
@@ -257,7 +257,7 @@ Rect FTFont::GetSize(char32_t ch) const {
 	int const s = Font::Default()->GetSize(ch).width;
 
 	if (s == -1) {
-		Output::Warning("Text contains invalid chars. Is the encoding correct?");
+		Output::Warning("Đoạn chữ có chứa kí tự không hợp lệ. Kiểm tra xem loại mã hoá đã đúng chưa?");
 
 		return Rect(0, 0, pixel_size() / 2, pixel_size());
 	} else {
@@ -273,11 +273,11 @@ Font::GlyphRet FTFont::Glyph(char32_t glyph) {
 	}
 
 	if (FT_Load_Char(face_.get(), glyph, FT_LOAD_NO_BITMAP) != FT_Err_Ok) {
-		Output::Error("Couldn't load FreeType character {:#x}", uint32_t(glyph));
+		Output::Error("Không thể tải kí tự FreeType {:#x}", uint32_t(glyph));
 	}
 
 	if (FT_Render_Glyph(face_->glyph, FT_RENDER_MODE_MONO) != FT_Err_Ok) {
-		Output::Error("Couldn't render FreeType character {:#x}", uint32_t(glyph));
+		Output::Error("Không thể xử lý kí tự FreeType {:#x}", uint32_t(glyph));
 	}
 
 	FT_Bitmap const& ft_bitmap = face_->glyph->bitmap;
@@ -307,7 +307,7 @@ bool FTFont::check_face() {
 		if (library_checker_.expired()) {
 			FT_Library lib;
 			if (FT_Init_FreeType(&lib) != FT_Err_Ok) {
-				Output::Error("Couldn't initialize FreeType");
+				Output::Error("Không thể khởi động FreeType");
 				return false;
 			}
 			library_.reset(lib, delete_library);
@@ -323,7 +323,7 @@ bool FTFont::check_face() {
 			std::string const face_path = FileFinder::FindFont(name);
 			FT_Face face;
 			if (FT_New_Face(library_.get(), face_path.c_str(), 0, &face) != FT_Err_Ok) {
-				Output::Error("Couldn't initialize FreeType face: {}({})",
+				Output::Error("Không thể khởi động phông chữ FreeType: {}({})",
 					name, face_path);
 				return false;
 			}
@@ -358,7 +358,7 @@ bool FTFont::check_face() {
 		}
 
 		if (FT_Set_Char_Size(face_.get(), sz, sz, dpi, dpi) != FT_Err_Ok) {
-			Output::Error("Couldn't set FreeType face size");
+			Output::Error("Không thể cài đặt kích thước phông chữ FreeType");
 			return false;
 		}
 		current_size_ = size;

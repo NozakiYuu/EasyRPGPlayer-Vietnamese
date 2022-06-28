@@ -43,7 +43,7 @@ std::unique_ptr<Input::Source> Input::Source::Create(
 		if (*log_src) {
 			return log_src;
 		}
-		Output::Warning("Failed to open file for input replaying: {}", path);
+		Output::Warning("Không thể mở tệp tin lặp lại phím: {}", path);
 
 		buttons = std::move(log_src->GetButtonMappings());
 		directions = std::move(log_src->GetDirectionMappings());
@@ -87,7 +87,7 @@ Input::LogSource::LogSource(const char* log_path, ButtonMappingArray buttons, Di
 	log_file(FileFinder::Root().OpenInputStream(log_path, std::ios::in))
 {
 	if (!log_file) {
-		Output::Error("Error reading input logfile {}", log_path);
+		Output::Error("Lỗi đọc tệp tin ghi lại phím {}", log_path);
 		return;
 	}
 
@@ -99,7 +99,7 @@ Input::LogSource::LogSource(const char* log_path, ButtonMappingArray buttons, Di
 		if (StringView(ver).starts_with("V 2")) {
 			version = 2;
 		} else {
-			Output::Error("Unsupported logfile version {}", ver);
+			Output::Error("Phiên bản tệp tin nhật ký {} không được hỗ trợ", ver);
 		}
 	} else {
 		Output::Debug("Using legacy inputlog format");
@@ -154,7 +154,7 @@ bool Input::Source::InitRecording(const std::string& record_to_path) {
 		record_log = std::make_unique<Filesystem_Stream::OutputStream>(FileFinder::Root().OpenOutputStream(path, std::ios::out | std::ios::trunc));
 
 		if (!record_log) {
-			Output::Error("Failed to open file {} for input recording : {}", path, strerror(errno));
+			Output::Error("Không thể mở tệp tin {} cho việc ghi lại phím: {}", path, strerror(errno));
 			return false;
 		}
 

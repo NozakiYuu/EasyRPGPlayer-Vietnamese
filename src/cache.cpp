@@ -260,7 +260,7 @@ namespace {
 
 				if (!is) {
 					if (s.warn_missing) {
-						Output::Warning("Image not found: {}/{}", s.directory, filename);
+						Output::Warning("Không tìm thấy tệp tin ảnh: {}/{}", s.directory, filename);
 					} else {
 						Output::Debug("Image not found: {}/{}", s.directory, filename);
 						bmp = CreateEmpty<T>();
@@ -271,7 +271,7 @@ namespace {
 							T == Material::System ? Bitmap::Flag_System : 0);
 					bmp = Bitmap::Create(std::move(is), transparent, flags);
 					if (!bmp) {
-						Output::Warning("Invalid image: {}/{}", s.directory, filename);
+						Output::Warning("Tệp tin ảnh không hợp lệ: {}/{}", s.directory, filename);
 					}
 				}
 			}

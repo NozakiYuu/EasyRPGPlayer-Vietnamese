@@ -389,7 +389,7 @@ RETRO_API bool retro_load_game(const struct retro_game_info* game) {
 		return false;
 
 	if (!LibretroUi::environ_cb(RETRO_ENVIRONMENT_SET_PIXEL_FORMAT, &fmt)) {
-		log_cb(RETRO_LOG_INFO, "XRGB8888 is not supported.\n");
+		log_cb(RETRO_LOG_INFO, "XRGB8888 is không được hỗ trợ.\n");
 		return false;
 	}
 

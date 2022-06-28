@@ -413,7 +413,7 @@ Transition::Type Game_System::GetTransition(int which) {
 	constexpr int num_types = 21;
 
 	if (transition < 0 || transition >= num_types) {
-		Output::Warning("Invalid transition value {}", transition);
+		Output::Warning("Giá trị hiệu ứng chuyển cảnh không hợp lệ {}", transition);
 		transition = Utils::Clamp(transition, 0, num_types - 1);
 	}
 
@@ -512,14 +512,14 @@ void Game_System::OnBgmReady(FileRequestResult* result) {
 	if (StringView(result->file).ends_with(".link")) {
 		// Handle Ineluki's MP3 patch
 		if (!stream) {
-			Output::Warning("Ineluki MP3: Link read error: {}", stream.GetName());
+			Output::Warning("Ineluki MP3: Lỗi đọc tệp tin liên kết: {}", stream.GetName());
 			return;
 		}
 
 		// The first line contains the path to the actual audio file to play
 		std::string line;
 		if (!Utils::ReadLine(stream, line)) {
-			Output::Warning("Ineluki MP3: Link file is empty: {}", stream.GetName());
+			Output::Warning("Ineluki MP3: Tệp tin liên kết trống: {}", stream.GetName());
 			return;
 		}
 		line = lcf::ReaderUtil::Recode(line, Player::encoding);
@@ -571,7 +571,7 @@ void Game_System::OnSeReady(FileRequestResult* result, lcf::rpg::Sound se, bool 
 	}
 
 	if (!se_cache) {
-		Output::Warning("Sound {}: Format not supported", result->file);
+		Output::Warning("Tệp tin âm thanh {}: Định dạng không đượjc hỗ trợ", result->file);
 		return;
 	}
 

@@ -37,7 +37,7 @@ using namespace std::chrono_literals;
 class WMAUnsupportedFormatDecoder : public AudioDecoder {
 public:
 	WMAUnsupportedFormatDecoder() {
-		error_message = std::string("WMA audio files are not supported. Reinstall the\n") +
+		error_message = std::string("WMA audio files are không được hỗ trợ. Reinstall the\n") +
 			"game and don't convert them when asked by Windows!\n";
 	}
 	bool Open(Filesystem_Stream::InputStream) override { return false; }

@@ -68,7 +68,7 @@ void CtrAudio::BGM_Play(Filesystem_Stream::InputStream filestream, int volume, i
 		return;
 
 	if (!filestream) {
-		Output::Warning("Couldn't play BGM {}: File not readable", filestream.GetName());
+		Output::Warning("Không thể phát nhạc nền {}: Tệp tin không thể đọc được", filestream.GetName());
 		return;
 	}
 
@@ -95,7 +95,7 @@ void CtrAudio::BGM_Play(Filesystem_Stream::InputStream filestream, int volume, i
 		bgm_buf[0].nsamples = nsamples;
 		bgm_buf[1].nsamples = nsamples;
 	} else {
-		Output::Warning("Couldn't play BGM {}: Format not supported", filestream.GetName());
+		Output::Warning("Không thể phát nhạc nền {}: Định dạng không được hỗ trợ", filestream.GetName());
 	}
 
 	UnlockMutex();
@@ -172,7 +172,7 @@ void CtrAudio::SE_Play(std::unique_ptr<AudioSeCache> se, int volume, int pitch) 
 		return;
 
 	if (!se) {
-		Output::Warning("SE_Play: AudioSeCache data is NULL");
+		Output::Warning("SE_Play: Dữ liệu của AudioSeCache là KHÔNG XÁC ĐỊNH");
 		return;
 	}
 
@@ -191,7 +191,7 @@ void CtrAudio::SE_Play(std::unique_ptr<AudioSeCache> se, int volume, int pitch) 
 	}
 
 	if (se_channel == -1) {
-		Output::Warning("Couldn't play SE {}: No free channel available", se->GetName());
+		Output::Warning("Không thể phát hiệu ứng âm thah {}: Không còn kênh nào có thể hoạt động", se->GetName());
 		return;
 	}
 
@@ -332,11 +332,11 @@ CtrAudio::CtrAudio() {
 
 	Result res = ndspInit();
 	if (R_FAILED(res)) {
-		Output::Warning("Couldn't initialize audio");
+		Output::Warning("Không thể khởi động âm thanh");
 		if ((R_SUMMARY(res) == RS_NOTFOUND) && (R_MODULE(res) == RM_DSP))
-			Output::Warning("This needs a dumped DSP firmware to work!");
+			Output::Warning("Việc này cần một dumped DSP firmware để có thể thực hiện!");
 		else
-			Output::Warning("Error code: {:#X}", res);
+			Output::Warning("Mã lỗi: {:#X}", res);
 
 		return;
 	}
